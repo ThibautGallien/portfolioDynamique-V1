@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Skip } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { SkipForward } from "lucide-react";
 
 interface AnimatedLoaderProps {
   progress: number;
@@ -11,7 +11,7 @@ interface AnimatedLoaderProps {
 }
 
 export function AnimatedLoader({ progress, onSkip }: AnimatedLoaderProps) {
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState("");
   const fullText = "Création de votre expérience...";
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export function AnimatedLoader({ progress, onSkip }: AnimatedLoaderProps) {
   }, [progress, fullText]);
 
   return (
-    <motion.div 
+    <motion.div
       className="fixed inset-0 bg-black flex items-center justify-center z-50"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -53,13 +53,13 @@ export function AnimatedLoader({ progress, onSkip }: AnimatedLoaderProps) {
               <stop offset="100%" stopColor="#FF6B35" />
             </linearGradient>
           </defs>
-          
+
           {/* Plume animée */}
           <motion.g
             initial={{ x: 50, y: 150 }}
-            animate={{ 
+            animate={{
               x: 50 + (progress / 100) * 100,
-              y: 150 - Math.sin((progress / 100) * Math.PI) * 100
+              y: 150 - Math.sin((progress / 100) * Math.PI) * 100,
             }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
@@ -72,7 +72,7 @@ export function AnimatedLoader({ progress, onSkip }: AnimatedLoaderProps) {
         </motion.svg>
 
         {/* Texte animé */}
-        <motion.h2 
+        <motion.h2
           className="text-2xl font-bold text-white mb-4 h-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -97,7 +97,7 @@ export function AnimatedLoader({ progress, onSkip }: AnimatedLoaderProps) {
         </div>
 
         {/* Pourcentage */}
-        <motion.p 
+        <motion.p
           className="text-lg text-gray-300 mb-8"
           key={Math.floor(progress)}
           initial={{ scale: 0.8 }}
@@ -113,7 +113,7 @@ export function AnimatedLoader({ progress, onSkip }: AnimatedLoaderProps) {
           onClick={onSkip}
           className="border-gray-600 text-gray-300 hover:text-white hover:border-white transition-colors"
         >
-          <Skip className="w-4 h-4 mr-2" />
+          <SkipForward className="w-4 h-4 mr-2" />
           Passer l'animation
         </Button>
       </div>
