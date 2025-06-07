@@ -1,0 +1,27 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "dev": "Développement",
+    "copy": "Copywriting",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Créateur d'expériences",
+    "subtitle": "digitales exceptionnelles",
+    "description": "Développeur web passionné et copywriter créatif, je transforme vos idées en réalités digitales qui marquent les esprits.",
+    "cta_dev": "Développeur Web",
+    "cta_copy": "Copywriter"
+  },
+  "services": {
+    "title": "Services & Expertises",
+    "description": "Une approche complète pour donner vie à vos projets digitaux, de la conception à la réalisation."
+  },
+  "testimonials": {
+    "title": "Témoignages Clients",
+    "description": "Découvrez ce que disent mes clients sur leur expérience de collaboration."
+  },
+  "contact": {
+    "title": "Prêt à Commencer ?",
+    "description": "Transformons votre vision en réalité digitale. Choisissez la méthode de contact qui vous convient le mieux."
+  }
+}
