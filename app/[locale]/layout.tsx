@@ -1,35 +1,37 @@
-import '../globals.css';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/providers/theme-provider';
-import { CustomCursor } from '@/components/ui/custom-cursor';
-import { Toaster } from '@/components/ui/sonner';
+import "../globals.css";
+import { notFound } from "next/navigation";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { CustomCursor } from "@/components/ui/custom-cursor";
+import { Toaster } from "@/components/ui/sonner";
+import { getMessages, isValidLocale, locales } from "@/lib/i18n";
+import { I18nProvider } from "@/components/providers/i18n-provider";
 
-const inter = Inter({ subsets: ['latin'] });
-
-const locales = ['fr', 'en', 'ja'];
+const inter = Inter({ subsets: ["latin"] });
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({
-  children,
-  params: { locale }
-}: {
+interface LocaleLayoutProps {
   children: React.ReactNode;
   params: { locale: string };
-}) {
-  if (!locales.includes(locale as any)) notFound();
+}
 
-  const messages = await getMessages();
+export default function LocaleLayout({
+  children,
+  params: { locale },
+}: LocaleLayoutProps) {
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
+
+  const messages = getMessages(locale);
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
+        <I18nProvider messages={messages} locale={locale}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -40,7 +42,7 @@ export default async function LocaleLayout({
             {children}
             <Toaster />
           </ThemeProvider>
-        </NextIntlClientProvider>
+        </I18nProvider>
       </body>
     </html>
   );
