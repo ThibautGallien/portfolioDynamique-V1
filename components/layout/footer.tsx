@@ -1,49 +1,58 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Mail, Linkedin, Github, Twitter } from 'lucide-react';
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Mail, Linkedin, Github, Twitter } from "lucide-react";
 
 export function Footer() {
   const router = useRouter();
 
   const footerSections = [
     {
-      title: 'Services',
+      title: "Services",
       links: [
-        { label: 'Développement Web', href: '/dev' },
-        { label: 'Copywriting', href: '/copy' },
-        { label: 'SEO & Performance', href: '/seo' },
-        { label: 'Consultation', href: '/contact' }
-      ]
+        { label: "Développement Web", href: "/dev" },
+        { label: "Copywriting", href: "/copy" },
+        { label: "Consultation", href: "/contact" },
+      ],
     },
     {
-      title: 'Portfolio',
+      title: "Portfolio",
       links: [
-        { label: 'Projets Dev', href: '/dev#portfolio' },
-        { label: 'Projets Copy', href: '/copy#portfolio' },
-        { label: 'Études de cas', href: '/case-studies' },
-        { label: 'Blog', href: '/blog' }
-      ]
+        { label: "Projets Dev", href: "/dev#portfolio" },
+        { label: "Projets Copy", href: "/copy#portfolio" },
+        { label: "Blog", href: "/blog" },
+      ],
     },
     {
-      title: 'Contact',
+      title: "Contact",
       links: [
-        { label: 'Formulaire', href: '/contact' },
-        { label: 'Email', href: 'mailto:contact@portfolio.com' },
-        { label: 'LinkedIn', href: 'https://linkedin.com' },
-        { label: 'Téléphone', href: 'tel:+33123456789' }
-      ]
-    }
+        { label: "Formulaire", href: "/contact" },
+        { label: "Email", href: "mailto:thibaut.gallien50@gmail.com" },
+        {
+          label: "LinkedIn",
+          href: "https://www.linkedin.com/in/thibaut-gallien/",
+        },
+        { label: "Téléphone", href: "tel:+33770179311" },
+      ],
+    },
   ];
 
   const socialLinks = [
-    { icon: Mail, href: 'mailto:contact@portfolio.com', label: 'Email' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' }
+    { icon: Mail, href: "mailto:thibaut.gallien50@gmail.com", label: "Email" },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/in/thibaut-gallien/",
+      label: "LinkedIn",
+    },
+    {
+      icon: Github,
+      href: "https://github.com/ThibautGallien",
+      label: "GitHub",
+    },
+    { icon: Twitter, href: "https://x.com/Thibaut_gallien", label: "Twitter" },
   ];
 
   return (
@@ -60,13 +69,13 @@ export function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500 bg-clip-text text-transparent mb-4">
-              Portfolio Dynamique
+              Thibaut Gallien
             </h3>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Créateur d'expériences digitales exceptionnelles. 
-              Développeur web passionné et copywriter créatif.
+              Créateur d'expériences digitales exceptionnelles. Développeur web
+              passionné et copywriter créatif.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => {
@@ -81,7 +90,7 @@ export function Footer() {
                       variant="ghost"
                       size="icon"
                       className="rounded-full hover:bg-primary/10"
-                      onClick={() => window.open(social.href, '_blank')}
+                      onClick={() => window.open(social.href, "_blank")}
                       data-cursor-hover
                     >
                       <Icon className="w-5 h-5" />
@@ -111,8 +120,12 @@ export function Footer() {
                       className="text-muted-foreground hover:text-primary transition-colors text-left"
                       whileHover={{ x: 5 }}
                       onClick={() => {
-                        if (link.href.startsWith('http') || link.href.startsWith('mailto') || link.href.startsWith('tel')) {
-                          window.open(link.href, '_blank');
+                        if (
+                          link.href.startsWith("http") ||
+                          link.href.startsWith("mailto") ||
+                          link.href.startsWith("tel")
+                        ) {
+                          window.open(link.href, "_blank");
                         } else {
                           router.push(link.href);
                         }
@@ -139,13 +152,14 @@ export function Footer() {
           viewport={{ once: true }}
         >
           <p className="text-muted-foreground text-sm">
-            © 2024 Portfolio Dynamique. Tous droits réservés.
+            © 2024 Thibaut Gallien. Tous droits réservés.
           </p>
-          
+
           <div className="flex space-x-6 text-sm">
             <motion.button
               className="text-muted-foreground hover:text-primary transition-colors"
               whileHover={{ y: -2 }}
+              onClick={() => router.push("/mentions-legales")}
               data-cursor-hover
             >
               Mentions légales
@@ -153,6 +167,7 @@ export function Footer() {
             <motion.button
               className="text-muted-foreground hover:text-primary transition-colors"
               whileHover={{ y: -2 }}
+              onClick={() => router.push("/politique-confidentialite")}
               data-cursor-hover
             >
               Politique de confidentialité
@@ -160,6 +175,7 @@ export function Footer() {
             <motion.button
               className="text-muted-foreground hover:text-primary transition-colors"
               whileHover={{ y: -2 }}
+              onClick={() => router.push("/cgv")}
               data-cursor-hover
             >
               CGV
