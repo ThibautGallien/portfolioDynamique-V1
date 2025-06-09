@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/ui/language-selector";
-import { Sun, Moon, Menu, X, Code, PenTool } from "lucide-react";
+import { Sun, Moon, Menu, X, Code, PenTool, User } from "lucide-react";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,6 +39,7 @@ export function Navigation() {
     { href: "/", label: "Accueil" },
     { href: "/dev", label: "Développement", icon: Code },
     { href: "/copy", label: "Copywriting", icon: PenTool },
+    { href: "/about", label: "À propos", icon: User },
     { href: "/contact", label: "Contact" },
   ];
 

@@ -1,132 +1,4 @@
-// lib/metadata.ts
-import type { Metadata } from "next";
-
-interface MetadataConfig {
-  title: string;
-  description: string;
-  keywords?: string[];
-  canonicalUrl?: string;
-  ogImage?: string;
-  ogType?: string;
-  twitterCard?: string;
-  noIndex?: boolean;
-}
-
-const DEFAULT_METADATA = {
-  siteName: "Thibaut Gallien - Portfolio",
-  domain: "https://thibaut-gallien.com", // Remplacez par votre domaine
-  ogImage: "/og-image.jpg", // Vous devrez créer cette image
-  twitterHandle: "@Thibaut_gallien",
-};
-
-export function generateMetadata({
-  title,
-  description,
-  keywords = [],
-  canonicalUrl,
-  ogImage,
-  ogType = "website",
-  twitterCard = "summary_large_image",
-  noIndex = false,
-}: MetadataConfig): Metadata {
-  const fullTitle = title.includes("Thibaut Gallien")
-    ? title
-    : `${title} | ${DEFAULT_METADATA.siteName}`;
-  const url = canonicalUrl || DEFAULT_METADATA.domain;
-  const image = ogImage || DEFAULT_METADATA.ogImage;
-  const fullImageUrl = image.startsWith("http")
-    ? image
-    : `${DEFAULT_METADATA.domain}${image}`;
-
-  return {
-    title: fullTitle,
-    description,
-    keywords: [
-      "développeur web",
-      "copywriter",
-      "freelance",
-      "React",
-      "Next.js",
-      "TypeScript",
-      "SEO",
-      "marketing digital",
-      "Thibaut Gallien",
-      ...keywords,
-    ].join(", "),
-
-    // Basic meta tags
-    alternates: {
-      canonical: url,
-      languages: {
-        fr: `${DEFAULT_METADATA.domain}/fr`,
-        en: `${DEFAULT_METADATA.domain}/en`,
-        ja: `${DEFAULT_METADATA.domain}/ja`,
-      },
-    },
-
-    // Open Graph
-    openGraph: {
-      title: fullTitle,
-      description,
-      url,
-      siteName: DEFAULT_METADATA.siteName,
-      type: ogType as any,
-      images: [
-        {
-          url: fullImageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-      locale: "fr_FR",
-      alternateLocale: ["en_US", "ja_JP"],
-    },
-
-    // Twitter
-    twitter: {
-      card: twitterCard as any,
-      title: fullTitle,
-      description,
-      images: [fullImageUrl],
-      creator: DEFAULT_METADATA.twitterHandle,
-      site: DEFAULT_METADATA.twitterHandle,
-    },
-
-    // Additional meta tags
-    robots: {
-      index: !noIndex,
-      follow: !noIndex,
-      googleBot: {
-        index: !noIndex,
-        follow: !noIndex,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
-
-    // Verification and additional tags
-    verification: {
-      google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
-      other: {
-        "facebook-domain-verification":
-          process.env.NEXT_PUBLIC_FACEBOOK_VERIFICATION || "",
-      },
-    },
-
-    // Additional metadata
-    category: "Technology",
-    authors: [{ name: "Thibaut Gallien", url: DEFAULT_METADATA.domain }],
-    creator: "Thibaut Gallien",
-    publisher: "Thibaut Gallien",
-    formatDetection: {
-      email: false,
-      address: false,
-      telephone: false,
-    },
-  };
-}
+// lib/metadata.ts (section mise à jour)
 
 // Métadonnées spécifiques par page
 export const PAGE_METADATA = {
@@ -162,6 +34,47 @@ export const PAGE_METADATA = {
         "フルスタック開発者",
         "フリーランス",
         "カスタムウェブサイト",
+      ],
+    },
+  },
+
+  about: {
+    fr: {
+      title: "À propos - Thibaut Gallien",
+      description:
+        "Découvrez mon parcours, mes valeurs et mes compétences. Développeur web passionné basé en Normandie, spécialisé en React/Next.js et copywriting.",
+      keywords: [
+        "à propos",
+        "parcours développeur",
+        "compétences techniques",
+        "valeurs professionnelles",
+        "Normandie",
+        "freelance local",
+      ],
+    },
+    en: {
+      title: "About - Thibaut Gallien",
+      description:
+        "Discover my journey, values and skills. Passionate web developer based in Normandy, specialized in React/Next.js and copywriting.",
+      keywords: [
+        "about",
+        "developer journey",
+        "technical skills",
+        "professional values",
+        "Normandy",
+        "local freelance",
+      ],
+    },
+    ja: {
+      title: "私について - Thibaut Gallien",
+      description:
+        "私の経歴、価値観、スキルをご覧ください。ノルマンディー在住の情熱的なウェブ開発者、React/Next.jsとコピーライティングが専門です。",
+      keywords: [
+        "私について",
+        "開発者の経歴",
+        "技術スキル",
+        "プロフェッショナルな価値観",
+        "ノルマンディー",
       ],
     },
   },
@@ -269,12 +182,3 @@ export const PAGE_METADATA = {
     },
   },
 };
-
-// Helper pour obtenir les métadonnées d'une page
-export function getPageMetadata(
-  page: keyof typeof PAGE_METADATA,
-  locale: "fr" | "en" | "ja" = "fr"
-) {
-  const pageData = PAGE_METADATA[page]?.[locale] || PAGE_METADATA[page].fr;
-  return generateMetadata(pageData);
-}

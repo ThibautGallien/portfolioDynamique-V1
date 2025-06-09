@@ -4,8 +4,10 @@ import { Navigation } from "@/components/layout/navigation";
 import { DevHeroSection } from "@/components/sections/dev-hero-section";
 import { DevPortfolioSection } from "@/components/sections/dev-portfolio-section";
 import { DevSkillsSection } from "@/components/sections/dev-skills-section";
+import { DevFAQSection } from "@/components/sections/dev-faq-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Footer } from "@/components/layout/footer";
+import { QuoteEstimatorSection } from "@/components/sections/quote-estimator-section";
 
 export function DevPageClient() {
   return (
@@ -14,6 +16,8 @@ export function DevPageClient() {
       <DevHeroSection />
       <DevPortfolioSection />
       <DevSkillsSection />
+      <QuoteEstimatorSection />
+      <DevFAQSection />
       <ContactSection />
       <Footer />
     </main>
