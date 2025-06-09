@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
-import { useRouter, usePathname } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Sun, Moon, Menu, X, Code, PenTool } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useRouter, usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/ui/language-selector";
+import { Sun, Moon, Menu, X, Code, PenTool } from "lucide-react";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,23 +20,34 @@ export function Navigation() {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Extraire la locale actuelle du pathname
+  const getLocalizedPath = (path: string) => {
+    const segments = pathname.split("/").filter(Boolean);
+    const locales = ["fr", "en", "ja"];
+
+    if (locales.includes(segments[0])) {
+      return `/${segments[0]}${path}`;
+    }
+    return path;
+  };
+
   const navItems = [
-    { href: '/', label: 'Accueil' },
-    { href: '/dev', label: 'Développement', icon: Code },
-    { href: '/copy', label: 'Copywriting', icon: PenTool },
-    { href: '/contact', label: 'Contact' },
+    { href: "/", label: "Accueil" },
+    { href: "/dev", label: "Développement", icon: Code },
+    { href: "/copy", label: "Copywriting", icon: PenTool },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-background/80 backdrop-blur-md border-b border-border' 
-          : 'bg-transparent'
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-b border-border"
+          : "bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -48,7 +60,8 @@ export function Navigation() {
             className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500 bg-clip-text text-transparent cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => router.push('/')}
+            onClick={() => router.push(getLocalizedPath("/"))}
+            data-cursor-hover
           >
             Portfolio
           </motion.div>
@@ -57,8 +70,11 @@ export function Navigation() {
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => {
               const Icon = item.icon;
-              const isActive = pathname === item.href;
-              
+              const localizedHref = getLocalizedPath(item.href);
+              const isActive =
+                pathname === localizedHref ||
+                (item.href !== "/" && pathname.startsWith(localizedHref));
+
               return (
                 <motion.div
                   key={item.href}
@@ -69,9 +85,12 @@ export function Navigation() {
                   <Button
                     variant="ghost"
                     className={`relative group ${
-                      isActive ? 'text-blue-500' : 'text-foreground hover:text-blue-500'
+                      isActive
+                        ? "text-blue-500"
+                        : "text-foreground hover:text-blue-500"
                     }`}
-                    onClick={() => router.push(item.href)}
+                    onClick={() => router.push(localizedHref)}
+                    data-cursor-hover
                   >
                     {Icon && <Icon className="w-4 h-4 mr-2" />}
                     {item.label}
@@ -88,21 +107,26 @@ export function Navigation() {
             })}
           </div>
 
-          {/* Theme Toggle & Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          {/* Controls Desktop */}
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Language Selector */}
+            <LanguageSelector variant="header" />
+
+            {/* Theme Toggle */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="relative overflow-hidden"
+                data-cursor-hover
               >
                 <motion.div
                   initial={false}
-                  animate={{ rotate: theme === 'dark' ? 0 : 180 }}
+                  animate={{ rotate: theme === "dark" ? 0 : 180 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {theme === 'dark' ? (
+                  {theme === "dark" ? (
                     <Sun className="h-5 w-5" />
                   ) : (
                     <Moon className="h-5 w-5" />
@@ -110,26 +134,45 @@ export function Navigation() {
                 </motion.div>
               </Button>
             </motion.div>
+          </div>
+
+          {/* Mobile Controls */}
+          <div className="flex md:hidden items-center space-x-2">
+            {/* Language Selector Mobile */}
+            <LanguageSelector variant="header" className="scale-90" />
+
+            {/* Theme Toggle Mobile */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="w-8 h-8"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </Button>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="w-8 h-8"
+            >
+              <motion.div
+                animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
               >
-                <motion.div
-                  animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {isMobileMenuOpen ? (
-                    <X className="h-5 w-5" />
-                  ) : (
-                    <Menu className="h-5 w-5" />
-                  )}
-                </motion.div>
-              </Button>
-            </div>
+                {isMobileMenuOpen ? (
+                  <X className="h-4 w-4" />
+                ) : (
+                  <Menu className="h-4 w-4" />
+                )}
+              </motion.div>
+            </Button>
           </div>
         </div>
 
@@ -137,17 +180,20 @@ export function Navigation() {
         <motion.div
           className="md:hidden overflow-hidden"
           initial={{ height: 0, opacity: 0 }}
-          animate={{ 
-            height: isMobileMenuOpen ? 'auto' : 0,
-            opacity: isMobileMenuOpen ? 1 : 0
+          animate={{
+            height: isMobileMenuOpen ? "auto" : 0,
+            opacity: isMobileMenuOpen ? 1 : 0,
           }}
           transition={{ duration: 0.3 }}
         >
-          <div className="py-4 space-y-2">
+          <div className="py-4 space-y-2 border-t border-border/50">
             {navItems.map((item, index) => {
               const Icon = item.icon;
-              const isActive = pathname === item.href;
-              
+              const localizedHref = getLocalizedPath(item.href);
+              const isActive =
+                pathname === localizedHref ||
+                (item.href !== "/" && pathname.startsWith(localizedHref));
+
               return (
                 <motion.div
                   key={item.href}
@@ -159,9 +205,10 @@ export function Navigation() {
                     variant={isActive ? "secondary" : "ghost"}
                     className="w-full justify-start"
                     onClick={() => {
-                      router.push(item.href);
+                      router.push(localizedHref);
                       setIsMobileMenuOpen(false);
                     }}
+                    data-cursor-hover
                   >
                     {Icon && <Icon className="w-4 h-4 mr-2" />}
                     {item.label}
