@@ -1,4 +1,5 @@
-// components/ui/chatbot-estimator.tsx
+// Supprimer l'ancienne configuration PRICING
+// Elle est maintenant dans PRICING_CONFIG importé depuis pricing-config.ts// components/ui/chatbot-estimator.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -29,7 +30,7 @@ interface QuestionOption {
 }
 
 interface UserData {
-  service?: "dev" | "copy";
+  service?: "development" | "copywriting" | "package";
   prestationType?: string;
   features?: string[];
   hasDesign?: boolean;
@@ -45,6 +46,7 @@ interface UserData {
   phone?: string;
   estimatedPrice?: number;
   breakdown?: any[];
+  prestationDetails?: any;
 }
 
 const PRICING = {
@@ -66,16 +68,9 @@ const PRICING = {
   },
 };
 
-const MESSAGES = {
-  fr: {
-    welcome:
-      "👋 Salut ! Je suis votre assistant devis. En quelques questions, je vais vous préparer une estimation personnalisée. C'est parti !",
-    serviceQuestion: "Quel type de service vous intéresse ?",
-    thankYou:
-      "🎉 Parfait ! Votre devis personnalisé est prêt. Vous le recevrez par email dans quelques instants.",
-    emailSent: "📧 Un PDF détaillé avec votre estimation vient d'être envoyé !",
-  },
-};
+import { PRICING_CONFIG, CHATBOT_QUESTIONS } from "@/lib/pricing-config";
+
+const MESSAGES = CHATBOT_QUESTIONS;
 
 export function ChatbotEstimator() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -95,9 +90,9 @@ export function ChatbotEstimator() {
   }, [messages]);
 
   useEffect(() => {
-    // Message de bienvenue
+    // Message de bienvenue avec options de service
     setTimeout(() => {
-      addBotMessage(MESSAGES.fr.welcome, "service");
+      addBotMessage(MESSAGES.fr.welcome, "service", MESSAGES.fr.serviceOptions);
     }, 1000);
   }, []);
 
@@ -154,204 +149,109 @@ export function ChatbotEstimator() {
         newUserData.service = option.value;
         setUserData(newUserData);
 
-        if (option.value === "dev") {
+        if (option.value === "development") {
           addBotMessage(
             "Parfait ! Quel type de projet de développement avez-vous en tête ?",
             "dev-type",
-            [
-              {
-                id: "site-vitrine",
-                label: "🌐 Site vitrine (1-5 pages)",
-                value: "site-vitrine",
-                description: "Site professionnel avec CMS",
-              },
-              {
-                id: "landing-page",
-                label: "🎯 Landing Page",
-                value: "landing-page",
-                description: "Page unique optimisée conversion",
-              },
-              {
-                id: "refonte",
-                label: "🔄 Refonte de site",
-                value: "refonte",
-                description: "Amélioration d'un site existant",
-              },
-              {
-                id: "pack-starter",
-                label: "📦 Pack Starter Local",
-                value: "starter-local",
-                description: "Site 3 pages clé en main",
-              },
-              {
-                id: "pack-conversion",
-                label: "🚀 Pack Conversion Pro",
-                value: "conversion-pro",
-                description: "Landing + Page de vente",
-              },
-            ]
+            MESSAGES.fr.developmentOptions
           );
-        } else if (option.value === "copy") {
+        } else if (option.value === "copywriting") {
           addBotMessage(
             "Excellent ! Quel type de copywriting vous intéresse ?",
             "copy-type",
-            [
-              {
-                id: "page-vente",
-                label: "💰 Page de vente longue",
-                value: "page-vente",
-                description: "Recherche + Big Idea + Structure",
-              },
-              {
-                id: "sequence-email",
-                label: "📧 Séquence email (5-7 mails)",
-                value: "sequence-email",
-                description: "Storytelling + Relance + CTA",
-              },
-              {
-                id: "newsletter",
-                label: "📩 Newsletter à l'unité",
-                value: "newsletter",
-                description: "Mail de contenu ou vente",
-              },
-              {
-                id: "pack-email",
-                label: "📦 Pack Email Boost",
-                value: "email-boost",
-                description: "Séquence complète",
-              },
-            ]
+            MESSAGES.fr.copywritingOptions
+          );
+        } else if (option.value === "package") {
+          addBotMessage(
+            "Parfait choix ! Notre offre signature comprend tout ce dont vous avez besoin :",
+            "package-type",
+            MESSAGES.fr.packageOptions
           );
         }
         break;
 
       case "dev-type":
-        newUserData.prestationType = option.value;
-        setUserData(newUserData);
-
-        if (option.value === "site-vitrine") {
-          addBotMessage(
-            "Combien de pages souhaitez-vous pour votre site vitrine ?",
-            "dev-pages",
-            [
-              {
-                id: "3-pages",
-                label: "3 pages",
-                value: 3,
-                description: "Accueil + À propos + Contact",
-              },
-              {
-                id: "4-pages",
-                label: "4 pages",
-                value: 4,
-                description: "+ Services ou Portfolio",
-              },
-              {
-                id: "5-pages",
-                label: "5 pages",
-                value: 5,
-                description: "Site complet avec blog",
-              },
-            ]
-          );
-        } else if (option.value === "landing-page") {
-          addBotMessage(
-            "Souhaitez-vous inclure le copywriting de votre landing page ?",
-            "dev-copywriting",
-            [
-              {
-                id: "copy-yes",
-                label: "✅ Oui, avec copywriting",
-                value: true,
-                description: "+150€ - Textes optimisés conversion",
-              },
-              {
-                id: "copy-no",
-                label: "❌ Non, j'ai déjà les textes",
-                value: false,
-                description: "Intégration uniquement",
-              },
-            ]
-          );
-        } else {
-          addBotMessage(
-            "Avez-vous déjà un design ou un site existant ?",
-            "dev-existing",
-            [
-              {
-                id: "has-design",
-                label: "🎨 J'ai un design",
-                value: "design",
-                description: "Maquettes Figma/Sketch existantes",
-              },
-              {
-                id: "has-site",
-                label: "🌐 J'ai un site à refaire",
-                value: "site",
-                description: "Site existant à améliorer",
-              },
-              {
-                id: "from-scratch",
-                label: "✨ Partir de zéro",
-                value: "scratch",
-                description: "Création complète",
-              },
-            ]
-          );
-        }
-        break;
-
       case "copy-type":
+      case "package-type":
         newUserData.prestationType = option.value;
         setUserData(newUserData);
 
-        if (option.value === "page-vente") {
+        // Récupérer les détails de la prestation
+        const serviceType =
+          newUserData.service === "package" ? "packages" : newUserData.service;
+        const prestationDetails =
+          PRICING_CONFIG[serviceType as keyof typeof PRICING_CONFIG]?.[
+            option.value
+          ];
+
+        if (prestationDetails) {
           addBotMessage(
-            "Parlez-moi de votre offre/produit à vendre :",
-            "copy-offer",
+            `Excellent choix ! Voici ce qui est inclus dans "${prestationDetails.name}" :
+
+💰 **Prix :** ${prestationDetails.minPrice}€ - ${prestationDetails.maxPrice}€
+⏱️ **Délais :** ${prestationDetails.timeline}
+
+✅ **Prestations incluses :**
+${prestationDetails.includes
+  .slice(0, 3)
+  .map((item: string) => `• ${item}`)
+  .join("\n")}
+... et bien plus encore !
+
+Pour personnaliser votre devis, parlez-moi de votre projet :`,
+            "project-details",
             undefined,
             "textarea"
           );
-        } else if (option.value === "sequence-email") {
-          addBotMessage(
-            "Quel est l'objectif de votre séquence email ?",
-            "copy-email-goal",
-            [
-              {
-                id: "onboarding",
-                label: "👋 Onboarding clients",
-                value: "onboarding",
-                description: "Accueillir nouveaux clients",
-              },
-              {
-                id: "nurturing",
-                label: "🌱 Nurturing prospects",
-                value: "nurturing",
-                description: "Éduquer avant vente",
-              },
-              {
-                id: "selling",
-                label: "💸 Vendre un produit",
-                value: "selling",
-                description: "Séquence de vente directe",
-              },
-              {
-                id: "retention",
-                label: "💝 Fidélisation",
-                value: "retention",
-                description: "Garder clients actifs",
-              },
-            ]
-          );
-        } else {
-          addBotMessage(
-            "Quel budget avez-vous prévu pour ce projet ?",
-            "budget"
-          );
         }
         break;
 
-      // Continuer selon le flow...
+      case "project-details":
+        newUserData.projectDetails = currentInput;
+        setUserData(newUserData);
+        addBotMessage(
+          "Quel budget avez-vous prévu pour ce projet ?",
+          "budget",
+          [
+            {
+              id: "budget-exact",
+              label: "💰 Budget précis en tête",
+              value: "exact",
+              description: "Je connais mon budget",
+            },
+            {
+              id: "budget-range",
+              label: "💎 Fourchette approximative",
+              value: "range",
+              description: "J'ai une idée générale",
+            },
+            {
+              id: "budget-open",
+              label: "🤔 Selon vos recommandations",
+              value: "open",
+              description: "Je vous fais confiance",
+            },
+            {
+              id: "budget-low",
+              label: "🎯 Budget serré",
+              value: "low",
+              description: "Je cherche l'option la plus économique",
+            },
+          ]
+        );
+        break;
+
+      case "budget":
+        newUserData.budget = option.value;
+        setUserData(newUserData);
+        addBotMessage(
+          "Parfait ! Maintenant vos coordonnées pour recevoir le devis détaillé :",
+          "contact-name",
+          undefined,
+          "text"
+        );
+        break;
+
       default:
         calculateEstimate(newUserData);
     }
@@ -421,57 +321,83 @@ export function ChatbotEstimator() {
   const calculateEstimate = (finalUserData: UserData) => {
     let estimate = 0;
     let breakdown = [];
+    let prestationDetails = null;
 
-    // Logique de calcul selon le type de prestation
     const { service, prestationType } = finalUserData;
 
-    if (service === "dev" && prestationType) {
-      const pricing =
-        PRICING.dev[prestationType as keyof typeof PRICING.dev] ||
-        PRICING.packs[prestationType as keyof typeof PRICING.packs];
-      if (pricing) {
-        estimate = pricing.base;
-        breakdown.push({
-          item: `${prestationType.replace("-", " ").toUpperCase()}`,
-          price: pricing.base,
-          description: "Développement complet avec responsive design",
-        });
-      }
-    } else if (service === "copy" && prestationType) {
-      const pricing =
-        PRICING.copy[prestationType as keyof typeof PRICING.copy] ||
-        PRICING.packs[prestationType as keyof typeof PRICING.packs];
-      if (pricing) {
-        estimate = pricing.base;
-        breakdown.push({
-          item: `${prestationType.replace("-", " ").toUpperCase()}`,
-          price: pricing.base,
-          description: "Copywriting optimisé conversion",
-        });
+    // Récupérer les détails de la prestation
+    if (service === "package") {
+      prestationDetails =
+        PRICING_CONFIG.packages[
+          prestationType as keyof typeof PRICING_CONFIG.packages
+        ];
+    } else {
+      const serviceKey = service as keyof typeof PRICING_CONFIG;
+      prestationDetails =
+        PRICING_CONFIG[serviceKey]?.[prestationType as string];
+    }
+
+    if (prestationDetails) {
+      estimate = prestationDetails.basePrice;
+
+      breakdown.push({
+        item: prestationDetails.name,
+        price: prestationDetails.basePrice,
+        description: prestationDetails.description,
+        includes: prestationDetails.includes,
+        bonus: prestationDetails.bonus,
+        guarantee: prestationDetails.guarantee,
+        timeline: prestationDetails.timeline,
+      });
+
+      // Ajustements selon le budget
+      if (finalUserData.budget === "low") {
+        estimate = prestationDetails.minPrice;
+        breakdown[0].price = prestationDetails.minPrice;
+        breakdown[0].note = "Version optimisée selon votre budget";
+      } else if (
+        finalUserData.budget === "exact" ||
+        finalUserData.budget === "range"
+      ) {
+        // Garder le prix de base
+      } else if (finalUserData.budget === "open") {
+        estimate = prestationDetails.maxPrice;
+        breakdown[0].price = prestationDetails.maxPrice;
+        breakdown[0].note = "Version premium avec toutes les options";
       }
     }
 
     finalUserData.estimatedPrice = estimate;
     finalUserData.breakdown = breakdown;
+    finalUserData.prestationDetails = prestationDetails;
     setUserData(finalUserData);
 
-    // Afficher le résultat
     showFinalEstimate(finalUserData);
   };
 
   const showFinalEstimate = (finalData: UserData) => {
+    const details = finalData.prestationDetails;
+
     addBotMessage(
-      `🎉 Votre devis personnalisé est prêt ! 
-      
-Estimation: **${finalData.estimatedPrice}€**
+      `🎉 Votre devis personnalisé est prêt !
 
-📧 Je vous envoie le PDF détaillé par email avec :
-• Détail des prestations
-• Planning indicatif  
-• Conditions de réalisation
-• Mes coordonnées
+💰 **${details?.name}**
+**Prix : ${finalData.estimatedPrice}€**
+⏱️ **Délais : ${details?.timeline}**
 
-Merci pour votre confiance ! 🚀`,
+✅ **Inclus dans votre prestation :**
+${details?.includes
+  .slice(0, 4)
+  .map((item: string) => `• ${item}`)
+  .join("\n")}
+... et ${details?.includes.length - 4 > 0 ? `${details.includes.length - 4} autres prestations` : "bien plus encore"} !
+
+🎁 **Bonus offerts :**
+${details?.bonus.map((item: string) => `• ${item}`).join("\n")}
+
+🛡️ **Garantie :** ${details?.guarantee}
+
+📧 Je vous envoie le PDF détaillé par email avec le breakdown complet !`,
       "completed"
     );
     setIsCompleted(true);
@@ -543,9 +469,7 @@ Merci pour votre confiance ! 🚀`,
                 key={message.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`flex ${
-                  message.type === "user" ? "justify-end" : "justify-start"
-                }`}
+                className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
                   className={`max-w-[80%] ${
