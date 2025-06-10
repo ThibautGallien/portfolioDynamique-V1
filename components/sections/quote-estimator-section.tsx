@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChatbotEstimator } from "@/components/ui/chatbot-estimator";
+import { ChatbotEstimatorEnhanced } from "@/components/ui/chatbot-estimator";
 import {
   Calculator,
   MessageCircle,
@@ -35,8 +35,8 @@ export function QuoteEstimatorSection() {
     },
     {
       icon: FileText,
-      title: "PDF professionnel",
-      description: "Devis détaillé envoyé par email",
+      title: "Devis professionnel",
+      description: "Estimation détaillée envoyée par email",
     },
     {
       icon: CheckCircle,
@@ -48,7 +48,7 @@ export function QuoteEstimatorSection() {
   const features = [
     "🎯 Questions adaptées à votre projet",
     "💰 Calcul de prix en temps réel",
-    "📄 Devis PDF détaillé par email",
+    "📄 Estimation détaillée par email",
     "🌍 Disponible en 3 langues",
     "⚡ Réponse instantanée",
     "🔒 Données sécurisées",
@@ -56,7 +56,10 @@ export function QuoteEstimatorSection() {
 
   if (isOpen) {
     return (
-      <section className="py-20 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-orange-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-orange-950/20">
+      <section
+        id="estimator"
+        className="py-20 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-orange-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-orange-950/20"
+      >
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-8"
@@ -85,7 +88,7 @@ export function QuoteEstimatorSection() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <ChatbotEstimator />
+            <ChatbotEstimatorEnhanced />
           </motion.div>
         </div>
       </section>
@@ -93,7 +96,10 @@ export function QuoteEstimatorSection() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-orange-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-orange-950/20">
+    <section
+      id="estimator"
+      className="py-20 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-orange-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-orange-950/20"
+    >
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -112,7 +118,7 @@ export function QuoteEstimatorSection() {
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             Découvrez le prix de votre projet en 2 minutes avec notre assistant
-            intelligent. Estimation personnalisée et PDF détaillé envoyé
+            intelligent. Estimation personnalisée et devis détaillé envoyé
             instantanément !
           </p>
 
@@ -227,7 +233,7 @@ export function QuoteEstimatorSection() {
                   </div>
                   <div className="flex items-center justify-center text-sm text-muted-foreground">
                     <FileText className="w-4 h-4 mr-2" />
-                    PDF envoyé instantanément
+                    Devis envoyé instantanément
                   </div>
                 </div>
 
@@ -301,7 +307,7 @@ export function QuoteEstimatorSection() {
               {
                 step: "3",
                 title: "Devis",
-                desc: "PDF détaillé généré instantanément",
+                desc: "Estimation détaillée générée instantanément",
                 icon: FileText,
               },
               {

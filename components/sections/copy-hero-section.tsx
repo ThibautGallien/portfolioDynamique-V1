@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { PenTool, Target, TrendingUp, Users, ArrowRight } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Code, Database, Globe, ArrowRight } from "lucide-react";
 
-export function CopyHeroSection() {
-  const expertise = [
-    { icon: PenTool, label: 'Copywriting', color: 'from-purple-500 to-pink-500' },
-    { icon: Target, label: 'Conversion', color: 'from-blue-500 to-cyan-500' },
-    { icon: TrendingUp, label: 'Growth', color: 'from-green-500 to-teal-500' },
-    { icon: Users, label: 'Engagement', color: 'from-orange-500 to-red-500' }
+export function DevHeroSection() {
+  const skills = [
+    { icon: Code, label: "Frontend", color: "from-blue-500 to-cyan-500" },
+    { icon: Database, label: "Backend", color: "from-green-500 to-teal-500" },
+    { icon: Globe, label: "Full-Stack", color: "from-orange-500 to-red-500" },
   ];
 
   return (
@@ -21,14 +20,14 @@ export function CopyHeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.h1 
+            <motion.h1
               className="text-5xl md:text-7xl font-bold mb-6"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-                Copywriter
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 bg-clip-text text-transparent">
+                Développeur Web
               </span>
             </motion.h1>
 
@@ -38,30 +37,30 @@ export function CopyHeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Je transforme vos messages en contenus persuasifs qui captivent, 
-              convertissent et fidélisent votre audience cible.
+              Je crée des applications web modernes, performantes et sur mesure
+              qui transforment vos idées en solutions digitales innovantes.
             </motion.p>
 
-            {/* Expertise Badges */}
+            {/* Skills Icons */}
             <motion.div
               className="flex flex-wrap justify-center gap-6 mb-12"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              {expertise.map((item, index) => {
-                const Icon = item.icon;
+              {skills.map((skill, index) => {
+                const Icon = skill.icon;
                 return (
                   <motion.div
                     key={index}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${item.color} text-white`}
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${skill.color} text-white`}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.8 + index * 0.1, duration: 0.4 }}
                     whileHover={{ scale: 1.05, y: -2 }}
                   >
                     <Icon className="w-5 h-5" />
-                    <span className="font-medium">{item.label}</span>
+                    <span className="font-medium">{skill.label}</span>
                   </motion.div>
                 );
               })}
@@ -75,19 +74,27 @@ export function CopyHeroSection() {
             >
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-3 rounded-xl"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-xl"
+                onClick={() => {
+                  const portfolioSection = document.getElementById("portfolio");
+                  portfolioSection?.scrollIntoView({ behavior: "smooth" });
+                }}
                 data-cursor-hover
               >
-                Voir mes créations
+                Voir mes projets
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="px-8 py-3 rounded-xl"
+                onClick={() => {
+                  const estimatorSection = document.getElementById("estimator");
+                  estimatorSection?.scrollIntoView({ behavior: "smooth" });
+                }}
                 data-cursor-hover
               >
-                Demander un devis
+                Obtenir un devis personnalisé
               </Button>
             </motion.div>
           </motion.div>

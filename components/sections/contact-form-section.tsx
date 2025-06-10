@@ -1,89 +1,77 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import Confetti from 'react-confetti';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
-import { 
-  ArrowRight, 
-  ArrowLeft, 
-  Check, 
-  Code, 
-  PenTool, 
-  Mail, 
-  Phone, 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import Confetti from "react-confetti";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  ArrowRight,
+  ArrowLeft,
+  Check,
+  Code,
+  PenTool,
+  Mail,
+  Phone,
   User,
   FileText,
   Calendar,
-  Euro
-} from 'lucide-react';
-import { toast } from 'sonner';
+  Euro,
+} from "lucide-react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
-  service: z.enum(['dev', 'copy', 'both']),
-  projectType: z.string().min(1, 'Veuillez sélectionner un type de projet'),
-  budget: z.string().min(1, 'Veuillez sélectionner un budget'),
-  timeline: z.string().min(1, 'Veuillez sélectionner un délai'),
-  firstName: z.string().min(2, 'Le prénom doit contenir au moins 2 caractères'),
-  lastName: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
-  email: z.string().email('Adresse email invalide'),
-  phone: z.string().min(10, 'Numéro de téléphone invalide'),
+  service: z.enum(["development", "copywriting", "package"], {
+    errorMap: () => ({ message: "Requis" }),
+  }),
+  projectType: z.string().min(1, "Requis"),
+  budget: z.string().min(1, "Requis"),
+  timeline: z.string().min(1, "Requis"),
+  firstName: z.string().min(2, "Le prénom doit contenir au moins 2 caractères"),
+  lastName: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
+  email: z.string().email("Adresse email invalide"),
+  phone: z.string().min(10, "Numéro de téléphone invalide"),
   company: z.string().optional(),
-  message: z.string().min(10, 'Le message doit contenir au moins 10 caractères'),
+  message: z
+    .string()
+    .min(10, "Le message doit contenir au moins 10 caractères"),
   newsletter: z.boolean().default(false),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 const projectTypes = {
-  dev: [
-    'Site vitrine',
-    'E-commerce',
-    'Application web',
-    'Refonte de site',
-    'Maintenance/Support',
-    'Autre'
+  development: ["Landing Page Optimisée", "Site Vitrine"],
+  copywriting: ["Séquence Email de Vente", "Newsletter Hebdomadaire"],
+  package: [
+    "Offre Signature - Site internet performant et moderne + Copywriting + Email marketing",
+    "Site + Copywriting optimisé",
   ],
-  copy: [
-    'Page de vente',
-    'Email marketing',
-    'Contenu blog',
-    'Scripts vidéo',
-    'Publicités',
-    'Autre'
-  ],
-  both: [
-    'Projet complet (Dev + Copy)',
-    'Site + contenu',
-    'E-commerce + marketing',
-    'Stratégie globale',
-    'Autre'
-  ]
 };
 
 const budgetRanges = [
-  '< 1 000€',
-  '1 000€ - 5 000€',
-  '5 000€ - 15 000€',
-  '15 000€ - 30 000€',
-  '> 30 000€'
+  "< 500€",
+  "500€ - 1 000€",
+  "1 000€ - 2 000€",
+  "2 000€ - 5 000€",
+  "> 5 000€",
+  "Budget flexible",
 ];
 
 const timelineOptions = [
-  'Urgence (< 2 semaines)',
-  'Rapide (2-4 semaines)',
-  'Standard (1-2 mois)',
-  'Flexible (2-3 mois)',
-  'Pas de deadline'
+  "Urgence (< 3 jours)",
+  "Rapide (1 semaine)",
+  "Standard (2 semaines)",
+  "Flexible (1 mois)",
+  "Pas de deadline",
 ];
 
 export function ContactFormSection() {
@@ -97,27 +85,28 @@ export function ContactFormSection() {
     formState: { errors },
     watch,
     setValue,
-    trigger
+    trigger,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      newsletter: false
-    }
+      newsletter: false,
+    },
   });
 
   const watchedValues = watch();
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    
+
     // Simulation d'envoi
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     setShowConfetti(true);
-    toast.success('Votre demande a été envoyée avec succès !', {
-      description: 'Je vous recontacte dans les 24h pour discuter de votre projet.'
+    toast.success("Votre demande a été envoyée avec succès !", {
+      description:
+        "Je vous recontacte dans les 24h pour discuter de votre projet.",
     });
-    
+
     setTimeout(() => setShowConfetti(false), 5000);
     setIsSubmitting(false);
     setCurrentStep(5); // Étape de confirmation
@@ -126,21 +115,26 @@ export function ContactFormSection() {
   const nextStep = async () => {
     const fieldsToValidate = getFieldsForStep(currentStep);
     const isStepValid = await trigger(fieldsToValidate);
-    
+
     if (isStepValid) {
-      setCurrentStep(prev => prev + 1);
+      setCurrentStep((prev) => prev + 1);
     }
   };
 
-  const prevStep = () => setCurrentStep(prev => prev - 1);
+  const prevStep = () => setCurrentStep((prev) => prev - 1);
 
   const getFieldsForStep = (step: number): (keyof FormData)[] => {
     switch (step) {
-      case 1: return ['service'];
-      case 2: return ['projectType', 'budget', 'timeline'];
-      case 3: return ['firstName', 'lastName', 'email', 'phone'];
-      case 4: return ['message'];
-      default: return [];
+      case 1:
+        return ["service"];
+      case 2:
+        return ["projectType", "budget", "timeline"];
+      case 3:
+        return ["firstName", "lastName", "email", "phone"];
+      case 4:
+        return ["message"];
+      default:
+        return [];
     }
   };
 
@@ -157,7 +151,7 @@ export function ContactFormSection() {
           numberOfPieces={200}
         />
       )}
-      
+
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Progress Bar */}
@@ -201,40 +195,58 @@ export function ContactFormSection() {
                       <h3 className="text-2xl font-bold mb-6 text-center">
                         Quel service vous intéresse ?
                       </h3>
-                      
+
                       <RadioGroup
                         value={watchedValues.service}
-                        onValueChange={(value) => setValue('service', value as any)}
+                        onValueChange={(value) =>
+                          setValue("service", value as any)
+                        }
                         className="grid grid-cols-1 md:grid-cols-3 gap-4"
                       >
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
                           <Label
-                            htmlFor="dev"
+                            htmlFor="development"
                             className={`flex flex-col items-center p-6 border-2 rounded-xl cursor-pointer transition-all ${
-                              watchedValues.service === 'dev' 
-                                ? 'border-blue-500 bg-blue-500/10' 
-                                : 'border-border hover:border-blue-300'
+                              watchedValues.service === "development"
+                                ? "border-blue-500 bg-blue-500/10"
+                                : "border-border hover:border-blue-300"
                             }`}
                           >
-                            <RadioGroupItem value="dev" id="dev" className="sr-only" />
+                            <RadioGroupItem
+                              value="development"
+                              id="development"
+                              className="sr-only"
+                            />
                             <Code className="w-12 h-12 mb-4 text-blue-500" />
-                            <span className="font-semibold">Développement Web</span>
+                            <span className="font-semibold">
+                              Développement Web
+                            </span>
                             <span className="text-sm text-muted-foreground text-center mt-2">
                               Sites web, applications, e-commerce
                             </span>
                           </Label>
                         </motion.div>
 
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
                           <Label
-                            htmlFor="copy"
+                            htmlFor="copywriting"
                             className={`flex flex-col items-center p-6 border-2 rounded-xl cursor-pointer transition-all ${
-                              watchedValues.service === 'copy' 
-                                ? 'border-purple-500 bg-purple-500/10' 
-                                : 'border-border hover:border-purple-300'
+                              watchedValues.service === "copywriting"
+                                ? "border-purple-500 bg-purple-500/10"
+                                : "border-border hover:border-purple-300"
                             }`}
                           >
-                            <RadioGroupItem value="copy" id="copy" className="sr-only" />
+                            <RadioGroupItem
+                              value="copywriting"
+                              id="copywriting"
+                              className="sr-only"
+                            />
                             <PenTool className="w-12 h-12 mb-4 text-purple-500" />
                             <span className="font-semibold">Copywriting</span>
                             <span className="text-sm text-muted-foreground text-center mt-2">
@@ -243,30 +255,41 @@ export function ContactFormSection() {
                           </Label>
                         </motion.div>
 
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
                           <Label
-                            htmlFor="both"
+                            htmlFor="package"
                             className={`flex flex-col items-center p-6 border-2 rounded-xl cursor-pointer transition-all ${
-                              watchedValues.service === 'both' 
-                                ? 'border-orange-500 bg-orange-500/10' 
-                                : 'border-border hover:border-orange-300'
+                              watchedValues.service === "package"
+                                ? "border-orange-500 bg-orange-500/10"
+                                : "border-border hover:border-orange-300"
                             }`}
                           >
-                            <RadioGroupItem value="both" id="both" className="sr-only" />
+                            <RadioGroupItem
+                              value="package"
+                              id="package"
+                              className="sr-only"
+                            />
                             <div className="flex space-x-2 mb-4">
                               <Code className="w-6 h-6 text-orange-500" />
                               <PenTool className="w-6 h-6 text-orange-500" />
                             </div>
-                            <span className="font-semibold">Les deux</span>
+                            <span className="font-semibold">
+                              Offre Complète
+                            </span>
                             <span className="text-sm text-muted-foreground text-center mt-2">
-                              Projet complet dev + copy
+                              Site + Copywriting + Email Marketing
                             </span>
                           </Label>
                         </motion.div>
                       </RadioGroup>
 
                       {errors.service && (
-                        <p className="text-red-500 text-sm mt-2">{errors.service.message}</p>
+                        <p className="text-red-500 text-sm mt-2">
+                          {errors.service.message}
+                        </p>
                       )}
                     </motion.div>
                   )}
@@ -293,16 +316,20 @@ export function ContactFormSection() {
                         </Label>
                         <RadioGroup
                           value={watchedValues.projectType}
-                          onValueChange={(value) => setValue('projectType', value)}
-                          className="grid grid-cols-2 gap-3"
+                          onValueChange={(value) =>
+                            setValue("projectType", value)
+                          }
+                          className="grid grid-cols-1 gap-3"
                         >
-                          {projectTypes[watchedValues.service || 'dev'].map((type) => (
+                          {projectTypes[
+                            watchedValues.service || "development"
+                          ].map((type) => (
                             <Label
                               key={type}
                               className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${
-                                watchedValues.projectType === type 
-                                  ? 'border-primary bg-primary/10' 
-                                  : 'border-border hover:border-primary/50'
+                                watchedValues.projectType === type
+                                  ? "border-primary bg-primary/10"
+                                  : "border-border hover:border-primary/50"
                               }`}
                             >
                               <RadioGroupItem value={type} className="mr-3" />
@@ -311,7 +338,9 @@ export function ContactFormSection() {
                           ))}
                         </RadioGroup>
                         {errors.projectType && (
-                          <p className="text-red-500 text-sm mt-1">{errors.projectType.message}</p>
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.projectType.message}
+                          </p>
                         )}
                       </div>
 
@@ -323,16 +352,16 @@ export function ContactFormSection() {
                         </Label>
                         <RadioGroup
                           value={watchedValues.budget}
-                          onValueChange={(value) => setValue('budget', value)}
+                          onValueChange={(value) => setValue("budget", value)}
                           className="grid grid-cols-2 gap-3"
                         >
                           {budgetRanges.map((budget) => (
                             <Label
                               key={budget}
                               className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${
-                                watchedValues.budget === budget 
-                                  ? 'border-primary bg-primary/10' 
-                                  : 'border-border hover:border-primary/50'
+                                watchedValues.budget === budget
+                                  ? "border-primary bg-primary/10"
+                                  : "border-border hover:border-primary/50"
                               }`}
                             >
                               <RadioGroupItem value={budget} className="mr-3" />
@@ -341,7 +370,9 @@ export function ContactFormSection() {
                           ))}
                         </RadioGroup>
                         {errors.budget && (
-                          <p className="text-red-500 text-sm mt-1">{errors.budget.message}</p>
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.budget.message}
+                          </p>
                         )}
                       </div>
 
@@ -353,25 +384,30 @@ export function ContactFormSection() {
                         </Label>
                         <RadioGroup
                           value={watchedValues.timeline}
-                          onValueChange={(value) => setValue('timeline', value)}
+                          onValueChange={(value) => setValue("timeline", value)}
                           className="space-y-2"
                         >
                           {timelineOptions.map((timeline) => (
                             <Label
                               key={timeline}
                               className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${
-                                watchedValues.timeline === timeline 
-                                  ? 'border-primary bg-primary/10' 
-                                  : 'border-border hover:border-primary/50'
+                                watchedValues.timeline === timeline
+                                  ? "border-primary bg-primary/10"
+                                  : "border-border hover:border-primary/50"
                               }`}
                             >
-                              <RadioGroupItem value={timeline} className="mr-3" />
+                              <RadioGroupItem
+                                value={timeline}
+                                className="mr-3"
+                              />
                               <span className="text-sm">{timeline}</span>
                             </Label>
                           ))}
                         </RadioGroup>
                         {errors.timeline && (
-                          <p className="text-red-500 text-sm mt-1">{errors.timeline.message}</p>
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.timeline.message}
+                          </p>
                         )}
                       </div>
                     </motion.div>
@@ -393,78 +429,101 @@ export function ContactFormSection() {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="firstName" className="text-base font-medium mb-2 block">
+                          <Label
+                            htmlFor="firstName"
+                            className="text-base font-medium mb-2 block"
+                          >
                             <User className="w-4 h-4 inline mr-2" />
                             Prénom *
                           </Label>
                           <Input
                             id="firstName"
-                            {...register('firstName')}
+                            {...register("firstName")}
                             className="h-12"
                             placeholder="Votre prénom"
                           />
                           {errors.firstName && (
-                            <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>
+                            <p className="text-red-500 text-sm mt-1">
+                              {errors.firstName.message}
+                            </p>
                           )}
                         </div>
 
                         <div>
-                          <Label htmlFor="lastName" className="text-base font-medium mb-2 block">
+                          <Label
+                            htmlFor="lastName"
+                            className="text-base font-medium mb-2 block"
+                          >
                             Nom *
                           </Label>
                           <Input
                             id="lastName"
-                            {...register('lastName')}
+                            {...register("lastName")}
                             className="h-12"
                             placeholder="Votre nom"
                           />
                           {errors.lastName && (
-                            <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>
+                            <p className="text-red-500 text-sm mt-1">
+                              {errors.lastName.message}
+                            </p>
                           )}
                         </div>
                       </div>
 
                       <div>
-                        <Label htmlFor="email" className="text-base font-medium mb-2 block">
+                        <Label
+                          htmlFor="email"
+                          className="text-base font-medium mb-2 block"
+                        >
                           <Mail className="w-4 h-4 inline mr-2" />
                           Email *
                         </Label>
                         <Input
                           id="email"
                           type="email"
-                          {...register('email')}
+                          {...register("email")}
                           className="h-12"
                           placeholder="votre@email.com"
                         />
                         {errors.email && (
-                          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.email.message}
+                          </p>
                         )}
                       </div>
 
                       <div>
-                        <Label htmlFor="phone" className="text-base font-medium mb-2 block">
+                        <Label
+                          htmlFor="phone"
+                          className="text-base font-medium mb-2 block"
+                        >
                           <Phone className="w-4 h-4 inline mr-2" />
                           Téléphone *
                         </Label>
                         <Input
                           id="phone"
                           type="tel"
-                          {...register('phone')}
+                          {...register("phone")}
                           className="h-12"
                           placeholder="06 12 34 56 78"
                         />
                         {errors.phone && (
-                          <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.phone.message}
+                          </p>
                         )}
                       </div>
 
                       <div>
-                        <Label htmlFor="company" className="text-base font-medium mb-2 block">
+                        <Label
+                          htmlFor="company"
+                          className="text-base font-medium mb-2 block"
+                        >
                           Entreprise (optionnel)
                         </Label>
                         <Input
                           id="company"
-                          {...register('company')}
+                          {...register("company")}
                           className="h-12"
                           placeholder="Nom de votre entreprise"
                         />
@@ -487,17 +546,22 @@ export function ContactFormSection() {
                       </h3>
 
                       <div>
-                        <Label htmlFor="message" className="text-base font-medium mb-2 block">
+                        <Label
+                          htmlFor="message"
+                          className="text-base font-medium mb-2 block"
+                        >
                           Message détaillé *
                         </Label>
                         <Textarea
                           id="message"
-                          {...register('message')}
+                          {...register("message")}
                           className="min-h-32"
                           placeholder="Décrivez votre projet, vos objectifs, vos contraintes..."
                         />
                         {errors.message && (
-                          <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.message.message}
+                          </p>
                         )}
                       </div>
 
@@ -505,25 +569,43 @@ export function ContactFormSection() {
                         <Checkbox
                           id="newsletter"
                           checked={watchedValues.newsletter}
-                          onCheckedChange={(checked) => setValue('newsletter', checked as boolean)}
+                          onCheckedChange={(checked) =>
+                            setValue("newsletter", checked as boolean)
+                          }
                         />
                         <Label htmlFor="newsletter" className="text-sm">
-                          Je souhaite recevoir des conseils et actualités par email
+                          Je souhaite recevoir des conseils et actualités par
+                          email
                         </Label>
                       </div>
 
                       {/* Récapitulatif */}
                       <div className="bg-muted/30 rounded-lg p-6 mt-8">
-                        <h4 className="font-semibold mb-4">Récapitulatif de votre demande :</h4>
+                        <h4 className="font-semibold mb-4">
+                          Récapitulatif de votre demande :
+                        </h4>
                         <div className="space-y-2 text-sm">
-                          <p><strong>Service :</strong> {
-                            watchedValues.service === 'dev' ? 'Développement Web' :
-                            watchedValues.service === 'copy' ? 'Copywriting' : 'Développement + Copywriting'
-                          }</p>
-                          <p><strong>Type :</strong> {watchedValues.projectType}</p>
-                          <p><strong>Budget :</strong> {watchedValues.budget}</p>
-                          <p><strong>Délai :</strong> {watchedValues.timeline}</p>
-                          <p><strong>Contact :</strong> {watchedValues.firstName} {watchedValues.lastName}</p>
+                          <p>
+                            <strong>Service :</strong>{" "}
+                            {watchedValues.service === "development"
+                              ? "Développement Web"
+                              : watchedValues.service === "copywriting"
+                                ? "Copywriting"
+                                : "Offre Complète (Développement + Copywriting)"}
+                          </p>
+                          <p>
+                            <strong>Type :</strong> {watchedValues.projectType}
+                          </p>
+                          <p>
+                            <strong>Budget :</strong> {watchedValues.budget}
+                          </p>
+                          <p>
+                            <strong>Délai :</strong> {watchedValues.timeline}
+                          </p>
+                          <p>
+                            <strong>Contact :</strong> {watchedValues.firstName}{" "}
+                            {watchedValues.lastName}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
@@ -546,14 +628,14 @@ export function ContactFormSection() {
                       >
                         <Check className="w-10 h-10 text-white" />
                       </motion.div>
-                      
+
                       <h3 className="text-3xl font-bold mb-4">Merci !</h3>
                       <p className="text-lg text-muted-foreground mb-6">
                         Votre demande a été envoyée avec succès.
                       </p>
                       <p className="text-muted-foreground">
-                        Je vous recontacte dans les 24h pour discuter de votre projet 
-                        et vous proposer une solution sur mesure.
+                        Je vous recontacte dans les 24h pour discuter de votre
+                        projet et vous proposer une solution sur mesure.
                       </p>
                     </motion.div>
                   )}
@@ -588,7 +670,7 @@ export function ContactFormSection() {
                         disabled={isSubmitting}
                         className="flex items-center bg-gradient-to-r from-green-500 to-teal-600"
                       >
-                        {isSubmitting ? 'Envoi...' : 'Envoyer ma demande'}
+                        {isSubmitting ? "Envoi..." : "Envoyer ma demande"}
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     )}

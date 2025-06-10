@@ -47,7 +47,7 @@ export function PrivacyPageClient() {
   const rights = [
     {
       name: "Droit d'accès",
-      description: "Connaître les données que nous avons sur vous",
+      description: "Connaître les données que j'ai sur vous",
     },
     {
       name: "Droit de rectification",
@@ -118,17 +118,18 @@ export function PrivacyPageClient() {
                     </h2>
                     <div className="bg-muted/30 rounded-lg p-6 mb-6">
                       <h3 className="text-lg font-semibold mb-3">
-                        [Votre Nom/Raison Sociale]
+                        Thibaut Gallien
                       </h3>
                       <ul className="space-y-2 text-muted-foreground">
                         <li>
-                          <strong>Adresse :</strong> [Votre adresse]
+                          <strong>Adresse :</strong> 3 rue Max Dormoy, 50120
+                          Cherbourg-en-Cotentin
                         </li>
                         <li>
-                          <strong>Email :</strong> [Votre email]
+                          <strong>Email :</strong> thibaut.gallien50@gmail.com
                         </li>
                         <li>
-                          <strong>Téléphone :</strong> [Votre téléphone]
+                          <strong>Téléphone :</strong> 07 70 17 93 11
                         </li>
                       </ul>
                     </div>
@@ -335,8 +336,8 @@ export function PrivacyPageClient() {
                       ))}
                     </div>
                     <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-                      <strong>Pour exercer vos droits :</strong> Contactez-nous
-                      à <strong>[votre email]</strong>
+                      <strong>Pour exercer vos droits :</strong> Contactez-moi à{" "}
+                      <strong>thibaut.gallien50@gmail.com</strong>
                     </div>
                   </motion.div>
 
@@ -387,7 +388,7 @@ export function PrivacyPageClient() {
                       Sécurité
                     </h2>
                     <p className="mb-6">
-                      Nous mettons en œuvre des mesures techniques et
+                      Je mets en œuvre des mesures techniques et
                       organisationnelles appropriées pour protéger vos données
                       contre tout accès non autorisé, altération, divulgation ou
                       destruction.
@@ -422,19 +423,6 @@ export function PrivacyPageClient() {
                       </div>
                     </div>
                   </motion.div>
-
-                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-6 mt-8">
-                    <h3 className="text-lg font-semibold mb-3 text-orange-600 flex items-center">
-                      <AlertTriangle className="w-5 h-5 mr-2" />
-                      Document à personnaliser
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      N'oubliez pas de remplacer tous les éléments entre
-                      crochets par vos informations réelles et d'adapter cette
-                      politique selon vos pratiques spécifiques de traitement
-                      des données.
-                    </p>
-                  </div>
                 </div>
               </CardContent>
             </Card>

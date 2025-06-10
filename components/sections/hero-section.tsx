@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Code, PenTool, ArrowRight } from 'lucide-react';
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Code, PenTool, ArrowRight } from "lucide-react";
 
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -14,7 +14,7 @@ export function HeroSection() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     // Configuration du canvas
@@ -23,7 +23,7 @@ export function HeroSection() {
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     // Particules
     const particles: Array<{
@@ -35,7 +35,7 @@ export function HeroSection() {
       color: string;
     }> = [];
 
-    const colors = ['#0066FF', '#8B5CF6', '#FF6B35'];
+    const colors = ["#0066FF", "#8B5CF6", "#FF6B35"];
     const numParticles = 100;
 
     // Initialiser les particules
@@ -46,7 +46,7 @@ export function HeroSection() {
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)]
+        color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
 
@@ -58,7 +58,7 @@ export function HeroSection() {
       mouseY = e.clientY;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
     // Animation
     const animate = () => {
@@ -100,7 +100,7 @@ export function HeroSection() {
         ctx.fill();
 
         // Lignes de connexion
-        particles.slice(index + 1).forEach(otherParticle => {
+        particles.slice(index + 1).forEach((otherParticle) => {
           const dx = particle.x - otherParticle.x;
           const dy = particle.y - otherParticle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -110,7 +110,7 @@ export function HeroSection() {
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
             ctx.strokeStyle = particle.color;
-            ctx.globalAlpha = (100 - distance) / 100 * 0.2;
+            ctx.globalAlpha = ((100 - distance) / 100) * 0.2;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -123,8 +123,8 @@ export function HeroSection() {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -136,9 +136,9 @@ export function HeroSection() {
       transition: {
         delay: i * 0.1,
         duration: 0.6,
-        ease: "easeOut"
-      }
-    })
+        ease: "easeOut",
+      },
+    }),
   };
 
   const title = "Créateur d'expériences";
@@ -150,7 +150,7 @@ export function HeroSection() {
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'transparent' }}
+        style={{ background: "transparent" }}
       />
 
       {/* Gradient d'arrière-plan */}
@@ -167,7 +167,7 @@ export function HeroSection() {
           {/* Titre principal avec effet split-text */}
           <div className="mb-4">
             <div className="flex flex-wrap justify-center items-center gap-2 mb-2">
-              {title.split(' ').map((word, i) => (
+              {title.split(" ").map((word, i) => (
                 <motion.h1
                   key={i}
                   custom={i}
@@ -181,10 +181,10 @@ export function HeroSection() {
               ))}
             </div>
             <div className="flex flex-wrap justify-center items-center gap-2">
-              {subtitle.split(' ').map((word, i) => (
+              {subtitle.split(" ").map((word, i) => (
                 <motion.h1
-                  key={i + title.split(' ').length}
-                  custom={i + title.split(' ').length}
+                  key={i + title.split(" ").length}
+                  custom={i + title.split(" ").length}
                   variants={splitTextVariants}
                   initial="hidden"
                   animate="visible"
@@ -202,13 +202,13 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            Développeur web passionné et copywriter créatif, 
-            je transforme vos idées en réalités digitales qui marquent les esprits.
+            Développeur web passionné et copywriter créatif, je transforme vos
+            idées en réalités digitales qui marquent les esprits.
           </motion.p>
 
           {/* Boutons d'action */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3, duration: 0.6 }}
@@ -216,11 +216,12 @@ export function HeroSection() {
             <motion.div
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
+              className="mr-4"
             >
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-2xl shadow-2xl shadow-blue-500/25"
-                onClick={() => router.push('/dev')}
+                onClick={() => router.push("/dev")}
                 data-cursor-hover
               >
                 <Code className="w-5 h-5 mr-2" />
@@ -236,7 +237,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-purple-500 to-orange-600 hover:from-purple-600 hover:to-orange-700 text-white px-8 py-6 text-lg rounded-2xl shadow-2xl shadow-purple-500/25"
-                onClick={() => router.push('/copy')}
+                onClick={() => router.push("/copy")}
                 data-cursor-hover
               >
                 <PenTool className="w-5 h-5 mr-2" />

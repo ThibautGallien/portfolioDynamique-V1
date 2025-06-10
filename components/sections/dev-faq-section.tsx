@@ -34,7 +34,7 @@ const devFAQs = [
   {
     question: "Quels sont vos tarifs pour le développement web ?",
     answer:
-      "Mes tarifs varient selon la complexité : Site vitrine à partir de 2 500€, E-commerce à partir de 5 000€, Application web sur devis. Je propose toujours un devis gratuit et détaillé après étude de votre projet.",
+      "Mes tarifs varient selon la complexité : chaque projet étant unique, je propose toujours une estimation personnalisée gratuite après étude de vos besoins spécifiques. Utilisez mon estimateur en ligne pour obtenir une première évaluation.",
     icon: Euro,
   },
   {
@@ -52,7 +52,7 @@ const devFAQs = [
   {
     question: "Comment se déroule le processus de développement ?",
     answer:
-      "1) Analyse des besoins et devis, 2) Maquettes et validation UX/UI, 3) Développement avec points d'étape réguliers, 4) Tests et recette, 5) Mise en ligne et formation. Vous êtes impliqué à chaque étape avec des livrables concrets.",
+      "1) Analyse des besoins et estimation personnalisée, 2) Maquettes et validation UX/UI, 3) Développement avec points d'étape réguliers, 4) Tests et recette, 5) Mise en ligne et formation. Vous êtes impliqué à chaque étape avec des livrables concrets.",
     icon: HelpCircle,
   },
   {
@@ -65,6 +65,7 @@ const devFAQs = [
     question: "Que se passe-t-il si je ne suis pas satisfait du résultat ?",
     answer:
       "Je m'engage sur votre satisfaction. Nous validons chaque étape ensemble et vous avez 3 révisions incluses. Si le résultat ne correspond pas au brief validé, je m'engage à corriger sans frais supplémentaires.",
+    icon: Settings,
   },
 ];
 

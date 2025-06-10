@@ -65,19 +65,18 @@ export function LegalPageClient() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <h3 className="text-lg font-semibold mb-3">
-                            [Votre Nom/Raison Sociale]
+                            Thibaut Gallien
                           </h3>
                           <ul className="space-y-2 text-muted-foreground">
                             <li>
-                              <strong>Statut :</strong>{" "}
-                              [Auto-entrepreneur/SARL/SASU...]
+                              <strong>Statut :</strong> Auto-entrepreneur
                             </li>
                             <li>
-                              <strong>SIRET :</strong> [Votre numéro SIRET]
+                              <strong>SIRET :</strong> 88466443400013
                             </li>
                             <li>
-                              <strong>Adresse :</strong> [Votre adresse
-                              complète]
+                              <strong>Adresse :</strong> 3 rue Max Dormoy, 50120
+                              Cherbourg-en-Cotentin
                             </li>
                           </ul>
                         </div>
@@ -86,10 +85,10 @@ export function LegalPageClient() {
                           <ul className="space-y-2 text-muted-foreground">
                             <li className="flex items-center">
                               <Mail className="w-4 h-4 mr-2" />
-                              [Votre email]
+                              thibaut.gallien50@gmail.com
                             </li>
                             <li>
-                              <strong>Téléphone :</strong> [Votre téléphone]
+                              <strong>Téléphone :</strong> 07 70 17 93 11
                             </li>
                           </ul>
                         </div>
@@ -110,28 +109,17 @@ export function LegalPageClient() {
                     </h2>
                     <div className="bg-muted/30 rounded-lg p-6 mb-6">
                       <h3 className="text-lg font-semibold mb-3">
-                        [Nom de l'hébergeur]
+                        Vercel Inc.
                       </h3>
                       <ul className="space-y-2 text-muted-foreground mb-4">
                         <li>
-                          <strong>Adresse :</strong> [Adresse de l'hébergeur]
+                          <strong>Adresse :</strong> 340 S Lemon Ave #4133,
+                          Walnut, CA 91789, USA
                         </li>
                         <li>
-                          <strong>Téléphone :</strong> [Téléphone de
-                          l'hébergeur]
+                          <strong>Téléphone :</strong> (559) 288-7060
                         </li>
                       </ul>
-
-                      <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-                        <h4 className="font-semibold mb-2 text-blue-600">
-                          Exemple pour Vercel :
-                        </h4>
-                        <div className="text-sm">
-                          <strong>Vercel Inc.</strong>
-                          <br />
-                          340 S Lemon Ave #4133, Walnut, CA 91789, USA
-                        </div>
-                      </div>
                     </div>
                   </motion.div>
 
@@ -148,9 +136,7 @@ export function LegalPageClient() {
                     </h2>
                     <div className="bg-muted/30 rounded-lg p-6 mb-6">
                       <p className="text-muted-foreground">
-                        <strong>
-                          [Votre nom en tant que responsable éditorial]
-                        </strong>
+                        <strong>Thibaut Gallien</strong>
                       </p>
                     </div>
                   </motion.div>
@@ -168,7 +154,7 @@ export function LegalPageClient() {
                     <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-orange-500/10 rounded-lg p-6 mb-6">
                       <p className="text-center">
                         Site web conçu et développé par{" "}
-                        <strong>[Votre nom/société]</strong>
+                        <strong>Thibaut Gallien</strong>
                       </p>
                     </div>
                   </motion.div>
@@ -227,8 +213,8 @@ export function LegalPageClient() {
                     </h2>
                     <p className="mb-6">
                       Les liens vers d'autres sites web sont fournis à titre
-                      informatif. Nous ne sommes pas responsables du contenu de
-                      ces sites tiers.
+                      informatif. Je ne suis pas responsables du contenu de ces
+                      sites tiers.
                     </p>
 
                     <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
@@ -300,32 +286,16 @@ export function LegalPageClient() {
                       </p>
                       <div className="flex items-center">
                         <Mail className="w-5 h-5 text-red-600 mr-3" />
-                        <span className="font-mono">[votre email]</span>
+                        <span className="font-mono">
+                          thibaut.gallien50@gmail.com
+                        </span>
                       </div>
                       <p className="text-sm text-muted-foreground mt-3">
-                        Nous nous engageons à traiter rapidement tout
-                        signalement justifié.
+                        Je m'engage à traiter rapidement tout signalement
+                        justifié.
                       </p>
                     </div>
                   </motion.div>
-
-                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-6 mt-8">
-                    <h3 className="text-lg font-semibold mb-3 text-orange-600 flex items-center">
-                      <AlertTriangle className="w-5 h-5 mr-2" />
-                      Document à personnaliser
-                    </h3>
-                    <div className="text-sm text-muted-foreground space-y-2">
-                      <p>
-                        <strong>À compléter obligatoirement :</strong>
-                      </p>
-                      <ul className="list-disc pl-5 space-y-1">
-                        <li>Vos informations personnelles/société</li>
-                        <li>Numéro SIRET et statut juridique</li>
-                        <li>Coordonnées complètes</li>
-                        <li>Informations de votre hébergeur</li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
               </CardContent>
             </Card>

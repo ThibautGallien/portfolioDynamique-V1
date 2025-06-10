@@ -1,61 +1,71 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Mail, FileText, Video, Megaphone, Target, Users } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Target, Globe, Wrench, CheckCircle } from "lucide-react";
 
-const copyServices = [
-  {
-    icon: Mail,
-    title: 'Email Marketing',
-    description: 'Séquences d\'emails qui convertissent, newsletters engageantes et campagnes automatisées.',
-    features: ['Séquences de bienvenue', 'Emails de vente', 'Newsletters', 'Automation'],
-    color: 'from-blue-500 to-cyan-500',
-    pricing: 'À partir de 800€'
-  },
-  {
-    icon: FileText,
-    title: 'Pages de Vente',
-    description: 'Landing pages haute conversion, pages produit persuasives et tunnels de vente optimisés.',
-    features: ['Landing pages', 'Pages produit', 'Tunnels de vente', 'CTA optimisés'],
-    color: 'from-green-500 to-teal-500',
-    pricing: 'À partir de 1200€'
-  },
-  {
-    icon: Video,
-    title: 'Scripts Vidéo',
-    description: 'Scripts pour YouTube, publicités vidéo, webinaires et présentations commerciales.',
-    features: ['Scripts YouTube', 'Pub vidéo', 'Webinaires', 'Pitchs'],
-    color: 'from-red-500 to-orange-500',
-    pricing: 'À partir de 600€'
-  },
-  {
-    icon: Megaphone,
-    title: 'Publicités',
-    description: 'Copies publicitaires Facebook, Google Ads, LinkedIn et campagnes multi-canaux.',
-    features: ['Facebook Ads', 'Google Ads', 'LinkedIn Ads', 'Display'],
-    color: 'from-purple-500 to-pink-500',
-    pricing: 'À partir de 400€'
-  },
+const devServices = [
   {
     icon: Target,
-    title: 'Contenu de Blog',
-    description: 'Articles SEO optimisés, guides pratiques et contenu éditorial qui engage.',
-    features: ['Articles SEO', 'Guides', 'Case studies', 'Livres blancs'],
-    color: 'from-indigo-500 to-purple-500',
-    pricing: 'À partir de 200€'
+    title: "Landing Page Optimisée",
+    subtitle: '"Page à Impact"',
+    description:
+      "Landing page 100% responsive et ultra rapide orientée conversion avec structure copywriting intégrée.",
+    features: [
+      "Structure copywriting : promesse, bénéfices, preuves, CTA",
+      "Design UX adapté à votre audience",
+      "SEO technique optimisé",
+      "Intégration formulaire/Calendly/Stripe",
+      "Tracking et analytics",
+      "CTA testés et positionnés stratégiquement",
+      "Format responsive garanti",
+    ],
+    color: "from-blue-500 to-cyan-500",
+    timeline: "3 à 5 jours",
+    pricing: "Estimation basée sur vos besoins",
   },
   {
-    icon: Users,
-    title: 'Stratégie de Contenu',
-    description: 'Audit éditorial, calendrier de contenu et stratégie de communication globale.',
-    features: ['Audit éditorial', 'Calendrier', 'Stratégie', 'Guidelines'],
-    color: 'from-yellow-500 to-orange-500',
-    pricing: 'À partir de 1500€'
-  }
+    icon: Globe,
+    title: "Site Vitrine Professionnel",
+    subtitle: '"Présence Pro Boostée"',
+    description:
+      "Site professionnel jusqu'à 5 pages avec CMS intégré pour une autonomie totale dans la gestion de contenu.",
+    features: [
+      "Jusqu'à 5 pages complètes",
+      "CMS Sanity : modifiez sans coder",
+      "SEO de base intégré",
+      "Design responsive et rapide",
+      "RGPD : mentions légales + cookies",
+      "Intégration Google Maps/WhatsApp",
+      "Rapport performance fourni",
+    ],
+    color: "from-green-500 to-teal-500",
+    timeline: "7 à 10 jours",
+    pricing: "Estimation basée sur vos besoins",
+  },
+  {
+    icon: Wrench,
+    title: "Maintenance Annuelle",
+    subtitle: '"Tranquillité Totale"',
+    description:
+      "Service de maintenance complète pour assurer la sécurité, performance et évolution de votre site web.",
+    features: [
+      "Sauvegarde mensuelle complète",
+      "Mises à jour techniques",
+      "Corrections de bugs simples",
+      "2 audits techniques/an",
+      "Jusqu'à 4h de modifications/an",
+      "Alerte proactive en cas de problème",
+      "Support prioritaire",
+    ],
+    color: "from-purple-500 to-pink-500",
+    timeline: "Service continu",
+    pricing: "Estimation basée sur vos besoins",
+  },
 ];
 
-export function CopyServicesSection() {
+export function DevServicesSection() {
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -66,19 +76,19 @@ export function CopyServicesSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
-            Services Copywriting
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 bg-clip-text text-transparent">
+            Services Développement
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Des mots qui vendent, des messages qui marquent. 
-            Découvrez tous mes services de rédaction persuasive.
+            Solutions techniques sur mesure pour donner vie à vos projets
+            digitaux. Du site vitrine à l'application complexe.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {copyServices.map((service, index) => {
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {devServices.map((service, index) => {
             const Icon = service.icon;
-            
+
             return (
               <motion.div
                 key={index}
@@ -99,10 +109,14 @@ export function CopyServicesSection() {
                       <Icon className="w-8 h-8 text-white" />
                     </motion.div>
 
-                    <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
+                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                       {service.title}
                     </h3>
-                    
+
+                    <p className="text-sm font-medium text-primary mb-4">
+                      {service.subtitle}
+                    </p>
+
                     <p className="text-muted-foreground mb-6 flex-grow">
                       {service.description}
                     </p>
@@ -114,25 +128,32 @@ export function CopyServicesSection() {
                         {service.features.map((feature, featureIndex) => (
                           <motion.li
                             key={featureIndex}
-                            className="flex items-center text-sm text-muted-foreground"
+                            className="flex items-start text-sm text-muted-foreground"
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ 
-                              duration: 0.3, 
-                              delay: index * 0.1 + featureIndex * 0.05 
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1 + featureIndex * 0.05,
                             }}
                             viewport={{ once: true }}
                           >
-                            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color} mr-3`} />
+                            <CheckCircle className="w-3 h-3 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                             {feature}
                           </motion.li>
                         ))}
                       </ul>
                     </div>
 
-                    {/* Pricing */}
-                    <div className="mt-auto">
-                      <div className={`text-lg font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent`}>
+                    {/* Timeline and Pricing */}
+                    <div className="mt-auto space-y-3">
+                      <div className="flex items-center justify-between">
+                        <Badge variant="secondary" className="text-xs">
+                          ⏱️ {service.timeline}
+                        </Badge>
+                      </div>
+                      <div
+                        className={`text-base font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent`}
+                      >
                         {service.pricing}
                       </div>
                     </div>
@@ -150,21 +171,26 @@ export function CopyServicesSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 rounded-2xl p-8 max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-orange-500/10 rounded-2xl p-8 max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">
               Besoin d'un projet sur mesure ?
             </h3>
             <p className="text-muted-foreground mb-6">
-              Chaque entreprise est unique. Discutons de vos besoins spécifiques 
-              pour créer une solution copywriting parfaitement adaptée.
+              Chaque projet est unique. Discutons de vos besoins spécifiques
+              pour créer une solution technique parfaitement adaptée à vos
+              objectifs.
             </p>
             <motion.button
-              className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white px-8 py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300"
+              className="bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500 text-white px-8 py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const estimatorSection = document.getElementById("estimator");
+                estimatorSection?.scrollIntoView({ behavior: "smooth" });
+              }}
               data-cursor-hover
             >
-              Demander un devis personnalisé
+              Obtenir un devis personnalisé
             </motion.button>
           </div>
         </motion.div>

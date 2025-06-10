@@ -30,7 +30,7 @@ export function CgvPageClient() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Conditions applicables à tous nos services de développement web et
+              Conditions applicables à tous mes services de développement web et
               copywriting
             </motion.p>
           </div>
@@ -55,8 +55,7 @@ export function CgvPageClient() {
                     <p className="mb-6">
                       Les présentes conditions générales de vente s'appliquent à
                       tous les services proposés par{" "}
-                      <strong>[Votre Nom/Raison Sociale]</strong>,
-                      auto-entrepreneur/société <strong>[à compléter]</strong>,
+                      <strong>Thibaut Gallien</strong>, auto-entrepreneur,
                       spécialisé(e) dans le développement web et le copywriting.
                     </p>
 
@@ -282,20 +281,9 @@ export function CgvPageClient() {
                     <p className="mb-6">
                       En cas de litige, les parties s'efforceront de trouver une
                       solution amiable. À défaut, les tribunaux de{" "}
-                      <strong>[Votre ville]</strong> seront compétents.
+                      <strong>Cherbourg</strong> seront compétents.
                     </p>
                   </motion.div>
-
-                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-6 mt-8">
-                    <h3 className="text-lg font-semibold mb-3 text-orange-600">
-                      ⚠️ Document à personnaliser
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      N'oubliez pas de remplacer tous les éléments entre
-                      crochets par vos informations réelles et de faire valider
-                      ce document par un professionnel du droit si nécessaire.
-                    </p>
-                  </div>
                 </div>
               </CardContent>
             </Card>
