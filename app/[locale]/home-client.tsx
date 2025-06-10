@@ -8,7 +8,7 @@ import { ServicesSection } from "@/components/sections/services-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Footer } from "@/components/layout/footer";
-
+import { BookingSection } from "@/components/sections/booking-section";
 export function HomePageClient() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -45,6 +45,7 @@ export function HomePageClient() {
       <HeroSection />
       <ServicesSection />
       <TestimonialsSection />
+      <BookingSection />
       <ContactSection />
       <Footer />
     </main>
