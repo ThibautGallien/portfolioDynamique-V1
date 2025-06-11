@@ -5,7 +5,16 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Sun, Moon, Menu, X, Code, PenTool, User } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  Code,
+  PenTool,
+  User,
+  FileText,
+} from "lucide-react";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,6 +35,7 @@ export function Navigation() {
     { href: "/", label: "Accueil" },
     { href: "/dev", label: "Développement", icon: Code },
     { href: "/copy", label: "Copywriting", icon: PenTool },
+    { href: "/blog", label: "Blog", icon: FileText }, // 👈 Nouveau !
     { href: "/about", label: "À propos", icon: User },
     { href: "/contact", label: "Contact" },
   ];
