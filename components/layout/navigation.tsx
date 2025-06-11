@@ -164,7 +164,7 @@ export function Navigation() {
           }}
           transition={{ duration: 0.3 }}
         >
-          <div className="py-4 space-y-2 border-t border-border/50">
+          <div className="py-4 space-y-2 border-t border-border/50 bg-background/95 backdrop-blur-md">
             {navItems.map((item, index) => {
               const Icon = item.icon;
               const isActive =
