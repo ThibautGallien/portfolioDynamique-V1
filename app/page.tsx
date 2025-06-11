@@ -1,8 +1,4 @@
-import { HomePageClient } from "../home-client";
-
-export function generateStaticParams() {
-  return [{ locale: "fr" }, { locale: "en" }, { locale: "ja" }];
-}
+import { HomePageClient } from "./home-client";
 
 export default function HomePage() {
   return <HomePageClient />;
