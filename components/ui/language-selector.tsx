@@ -13,7 +13,15 @@ const languages = [
   { code: "ja", name: "日本語", flag: "🇯🇵" },
 ];
 
-export function LanguageSelector() {
+interface LanguageSelectorProps {
+  variant?: "header";
+  className?: string;
+}
+
+export function LanguageSelector({
+  variant,
+  className,
+}: LanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -23,18 +31,38 @@ export function LanguageSelector() {
     languages.find((lang) => lang.code === currentLocale) || languages[0];
 
   const handleLanguageChange = (langCode: string) => {
-    // Extraire le chemin sans la locale actuelle
-    const pathWithoutLocale = pathname.replace(/^\/[^\/]+/, "") || "/";
+    console.log("Switching from", currentLocale, "to", langCode);
+    console.log("Current pathname:", pathname);
 
-    // Construire la nouvelle URL
-    const newPath =
-      langCode === "fr"
-        ? pathWithoutLocale === "/"
-          ? "/"
-          : pathWithoutLocale
-        : `/${langCode}${pathWithoutLocale}`;
+    // Extraire le path sans la locale
+    const segments = pathname.split("/").filter(Boolean);
+    const locales = ["fr", "en", "ja"];
 
-    router.push(newPath);
+    let pathWithoutLocale = "/";
+
+    // Si le premier segment est une locale, on l'enlève
+    if (locales.includes(segments[0])) {
+      pathWithoutLocale = "/" + segments.slice(1).join("/");
+    } else {
+      pathWithoutLocale = pathname;
+    }
+
+    // Si on va au français, pas de préfixe
+    // Sinon, ajouter le préfixe de langue
+    let newPath;
+    if (langCode === "fr") {
+      newPath = pathWithoutLocale === "/" ? "/" : pathWithoutLocale;
+    } else {
+      newPath = `/${langCode}${pathWithoutLocale}`;
+    }
+
+    // Nettoyer les doubles slashes
+    newPath = newPath.replace(/\/+/g, "/");
+
+    console.log("New path:", newPath);
+
+    // Utiliser window.location pour forcer le rechargement avec next-intl
+    window.location.href = newPath;
     setIsOpen(false);
   };
 
@@ -59,13 +87,10 @@ export function LanguageSelector() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Overlay pour fermer le menu */}
             <div
               className="fixed inset-0 z-10"
               onClick={() => setIsOpen(false)}
             />
-
-            {/* Menu déroulant */}
             <motion.div
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}

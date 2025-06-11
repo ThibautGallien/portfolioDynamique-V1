@@ -3,69 +3,92 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Target, Globe, Wrench, CheckCircle } from "lucide-react";
+import { Mail, Clock, FileText, CheckCircle } from "lucide-react";
 
-const devServices = [
+const copyServices = [
   {
-    icon: Target,
-    title: "Landing Page Optimisée",
-    subtitle: '"Page à Impact"',
+    icon: Mail,
+    title: "Séquence Email de Vente",
+    subtitle: '"La Séquence Augmentée"',
     description:
-      "Landing page 100% responsive et ultra rapide orientée conversion avec structure copywriting intégrée.",
+      "5 à 7 emails ultra ciblés pour vendre un produit ou convertir après une opt-in.",
     features: [
-      "Structure copywriting : promesse, bénéfices, preuves, CTA",
-      "Design UX adapté à votre audience",
-      "SEO technique optimisé",
-      "Intégration formulaire/Calendly/Stripe",
-      "Tracking et analytics",
-      "CTA testés et positionnés stratégiquement",
-      "Format responsive garanti",
+      "Recherche approfondie sur ton avatar, tes objections, ton marché (PDF fourni)",
+      "Structuration stratégique selon AIDA / PAS / 4P / Storytelling",
+      'Création d\'une "Big Idea" mémorable pour ancrer ton positionnement',
+      "CTA optimisés (emplacement, fréquence, ancrage)",
+      "Objets + preview text testés pour taux d'ouverture max",
+      "Format responsive mobile + compatible avec tous les auto-répondeurs",
+      "Ton adaptatif : autorité, émotion, pédagogie ou ultra direct",
+      'Version "light" disponible pour réseaux sociaux',
     ],
-    color: "from-blue-500 to-cyan-500",
-    timeline: "3 à 5 jours",
-    pricing: "Estimation basée sur vos besoins",
-  },
-  {
-    icon: Globe,
-    title: "Site Vitrine Professionnel",
-    subtitle: '"Présence Pro Boostée"',
-    description:
-      "Site professionnel jusqu'à 5 pages avec CMS intégré pour une autonomie totale dans la gestion de contenu.",
-    features: [
-      "Jusqu'à 5 pages complètes",
-      "CMS Sanity : modifiez sans coder",
-      "SEO de base intégré",
-      "Design responsive et rapide",
-      "RGPD : mentions légales + cookies",
-      "Intégration Google Maps/WhatsApp",
-      "Rapport performance fourni",
-    ],
-    color: "from-green-500 to-teal-500",
-    timeline: "7 à 10 jours",
-    pricing: "Estimation basée sur vos besoins",
-  },
-  {
-    icon: Wrench,
-    title: "Maintenance Annuelle",
-    subtitle: '"Tranquillité Totale"',
-    description:
-      "Service de maintenance complète pour assurer la sécurité, performance et évolution de votre site web.",
-    features: [
-      "Sauvegarde mensuelle complète",
-      "Mises à jour techniques",
-      "Corrections de bugs simples",
-      "2 audits techniques/an",
-      "Jusqu'à 4h de modifications/an",
-      "Alerte proactive en cas de problème",
-      "Support prioritaire",
+    bonus: [
+      '1 mail de relance ou "jour +7"',
+      "Audit de ta séquence actuelle si existante",
+      'PDF "structure email qui convertit + erreurs à éviter"',
     ],
     color: "from-purple-500 to-pink-500",
-    timeline: "Service continu",
-    pricing: "Estimation basée sur vos besoins",
+    timeline: "5 à 7 jours",
+    pricing: "250€ - 500€",
+    guarantee:
+      "Tu ne paies que si tu fais mieux qu'avant. Sinon, tu repars avec ta séquence complète, offerte.",
+  },
+  {
+    icon: Clock,
+    title: "Newsletter Hebdomadaire",
+    subtitle: '"Le Canal de Confiance"',
+    description:
+      "4 newsletters/mois prêtes à l'envoi pour créer une relation de confiance avec ton audience.",
+    features: [
+      "4 newsletters/mois prêtes à l'envoi",
+      "Angle éditorial défini selon ton avatar et ton positionnement",
+      "Ton de marque, storytelling, pédagogie, preuves, anecdotes, punchlines",
+      "Plan de contenu mensuel + système de recyclage (posts, threads, vidéos)",
+      "CTA organiques ou directs en fonction du sujet",
+      "Objets + preview text optimisés",
+      "Mise en ligne + envoi automatisé compris (Brevo, ActiveCampaign, Systeme.io, etc.)",
+      "Format responsive garanti",
+    ],
+    bonus: [
+      "Calendrier éditorial chaque mois (PDF + notion si tu veux)",
+      "Audit 1 fois/trim sur la performance email (si données dispo)",
+    ],
+    color: "from-blue-500 to-cyan-500",
+    timeline: "4 newsletters livrées chaque début de mois",
+    pricing: "400€/mois",
+    guarantee:
+      "Si ton taux d'ouverture ou de clics ne progresse pas sur le mois, je retravaille tout gratuitement.",
+  },
+  {
+    icon: FileText,
+    title: "Page de Vente",
+    subtitle: '"La Conversion Machine"',
+    description:
+      "Page de vente ultra-persuasive qui transforme tes visiteurs en clients payants.",
+    features: [
+      "Recherche approfondie de ton marché et de tes concurrents",
+      "Structure copywriting éprouvée (AIDA, PAS, StoryBrand)",
+      "Rédaction complète de la page de vente",
+      "Headlines accrocheurs testés sur plusieurs variations",
+      "Gestion des objections point par point",
+      "Call-to-actions optimisés et positionnés stratégiquement",
+      "Version mobile responsive",
+      "Intégration avec ton système de paiement",
+    ],
+    bonus: [
+      "2 variations de headlines pour A/B test",
+      "Email de suivi post-achat",
+      'PDF "Les 10 erreurs qui tuent tes conversions"',
+    ],
+    color: "from-orange-500 to-red-500",
+    timeline: "7 à 10 jours",
+    pricing: "800€ - 2000€",
+    guarantee:
+      "Si ton taux de conversion n'augmente pas, je reprends la page gratuitement.",
   },
 ];
 
-export function DevServicesSection() {
+export function CopyServicesSection() {
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -76,17 +99,17 @@ export function DevServicesSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 bg-clip-text text-transparent">
-            Services Développement
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
+            Services Copywriting
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Solutions techniques sur mesure pour donner vie à vos projets
-            digitaux. Du site vitrine à l'application complexe.
+            Contenus persuasifs qui transforment vos prospects en clients.
+            Emails, newsletters et pages de vente avec garantie résultats.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {devServices.map((service, index) => {
+          {copyServices.map((service, index) => {
             const Icon = service.icon;
 
             return (
@@ -117,18 +140,18 @@ export function DevServicesSection() {
                       {service.subtitle}
                     </p>
 
-                    <p className="text-muted-foreground mb-6 flex-grow">
+                    <p className="text-muted-foreground mb-6">
                       {service.description}
                     </p>
 
                     {/* Features List */}
-                    <div className="mb-6">
-                      <h4 className="font-medium mb-3 text-sm">Inclus :</h4>
+                    <div className="mb-6 flex-grow">
+                      <h4 className="font-medium mb-3 text-sm">✅ Inclus :</h4>
                       <ul className="space-y-2">
                         {service.features.map((feature, featureIndex) => (
                           <motion.li
                             key={featureIndex}
-                            className="flex items-start text-sm text-muted-foreground"
+                            className="flex items-start text-xs text-muted-foreground"
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{
@@ -144,17 +167,43 @@ export function DevServicesSection() {
                       </ul>
                     </div>
 
-                    {/* Timeline and Pricing */}
+                    {/* Bonus Section */}
+                    <div className="mb-6">
+                      <h4 className="font-medium mb-3 text-sm text-orange-600">
+                        🎁 Bonus :
+                      </h4>
+                      <ul className="space-y-1">
+                        {service.bonus.map((bonus, bonusIndex) => (
+                          <li
+                            key={bonusIndex}
+                            className="text-xs text-muted-foreground flex items-start"
+                          >
+                            <span className="text-orange-500 mr-2">•</span>
+                            {bonus}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Timeline, Pricing and Guarantee */}
                     <div className="mt-auto space-y-3">
                       <div className="flex items-center justify-between">
                         <Badge variant="secondary" className="text-xs">
                           ⏱️ {service.timeline}
                         </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          💰 {service.pricing}
+                        </Badge>
                       </div>
-                      <div
-                        className={`text-base font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent`}
-                      >
-                        {service.pricing}
+
+                      {/* Guarantee */}
+                      <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
+                        <h5 className="font-medium text-green-700 text-xs mb-1">
+                          🛡️ Garantie Résultats
+                        </h5>
+                        <p className="text-xs text-green-600 leading-relaxed">
+                          {service.guarantee}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -164,24 +213,24 @@ export function DevServicesSection() {
           })}
         </div>
 
+        {/* Call to Action */}
         <motion.div
           className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-orange-500/10 rounded-2xl p-8 max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 rounded-2xl p-8 max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">
-              Besoin d'un projet sur mesure ?
+              Prêt à booster vos conversions ?
             </h3>
             <p className="text-muted-foreground mb-6">
-              Chaque projet est unique. Discutons de vos besoins spécifiques
-              pour créer une solution technique parfaitement adaptée à vos
-              objectifs.
+              Discutons de votre stratégie de contenu et de la façon dont le
+              copywriting peut transformer vos résultats business.
             </p>
             <motion.button
-              className="bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500 text-white px-8 py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300"
+              className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {

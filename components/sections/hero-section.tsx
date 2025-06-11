@@ -5,10 +5,12 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Code, PenTool, ArrowRight } from "lucide-react";
+import { useTranslations } from "@/components/providers/i18n-provider";
 
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const router = useRouter();
+  const t = useTranslations();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -141,8 +143,12 @@ export function HeroSection() {
     }),
   };
 
-  const title = "Créateur d'expériences";
-  const subtitle = "digitales exceptionnelles";
+  // Récupération des traductions
+  const title = t("hero.title");
+  const subtitle = t("hero.subtitle");
+  const description = t("hero.description");
+  const ctaDev = t("hero.cta_dev");
+  const ctaCopy = t("hero.cta_copy");
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -202,13 +208,12 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            Développeur web passionné et copywriter créatif, je transforme vos
-            idées en réalités digitales qui marquent les esprits.
+            {description}
           </motion.p>
 
-          {/* Boutons d'action */}
+          {/* Boutons d'action - Position ajustée pour éviter la superposition */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3, duration: 0.6 }}
@@ -216,7 +221,7 @@ export function HeroSection() {
             <motion.div
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="mr-4"
+              className="transform -translate-x-2" // Décalage de 8px vers la gauche
             >
               <Button
                 size="lg"
@@ -225,7 +230,7 @@ export function HeroSection() {
                 data-cursor-hover
               >
                 <Code className="w-5 h-5 mr-2" />
-                Développeur Web
+                {ctaDev}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>
@@ -241,7 +246,7 @@ export function HeroSection() {
                 data-cursor-hover
               >
                 <PenTool className="w-5 h-5 mr-2" />
-                Copywriter
+                {ctaCopy}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>

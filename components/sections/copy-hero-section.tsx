@@ -2,14 +2,36 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Code, Database, Globe, ArrowRight } from "lucide-react";
+import { PenTool, Target, TrendingUp, ArrowRight } from "lucide-react";
 
-export function DevHeroSection() {
+export function CopyHeroSection() {
   const skills = [
-    { icon: Code, label: "Frontend", color: "from-blue-500 to-cyan-500" },
-    { icon: Database, label: "Backend", color: "from-green-500 to-teal-500" },
-    { icon: Globe, label: "Full-Stack", color: "from-orange-500 to-red-500" },
+    { icon: PenTool, label: "Emails", color: "from-purple-500 to-pink-500" },
+    {
+      icon: Target,
+      label: "Pages de vente",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: TrendingUp,
+      label: "Conversion",
+      color: "from-orange-500 to-red-500",
+    },
   ];
+
+  const scrollToPortfolio = () => {
+    const portfolioSection = document.getElementById("portfolio");
+    if (portfolioSection) {
+      portfolioSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const scrollToEstimator = () => {
+    const estimatorSection = document.getElementById("estimator");
+    if (estimatorSection) {
+      estimatorSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="pt-24 pb-16 bg-gradient-to-b from-background to-muted/30">
@@ -26,8 +48,8 @@ export function DevHeroSection() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 bg-clip-text text-transparent">
-                Développeur Web
+              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
+                Copywriter Expert
               </span>
             </motion.h1>
 
@@ -37,8 +59,9 @@ export function DevHeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Je crée des applications web modernes, performantes et sur mesure
-              qui transforment vos idées en solutions digitales innovantes.
+              Je crée des contenus persuasifs qui transforment vos prospects en
+              clients. Séquences email, newsletters et pages de vente qui
+              convertissent vraiment.
             </motion.p>
 
             {/* Skills Icons */}
@@ -74,24 +97,18 @@ export function DevHeroSection() {
             >
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-xl"
-                onClick={() => {
-                  const portfolioSection = document.getElementById("portfolio");
-                  portfolioSection?.scrollIntoView({ behavior: "smooth" });
-                }}
+                className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-3 rounded-xl"
+                onClick={scrollToPortfolio}
                 data-cursor-hover
               >
-                Voir mes projets
+                Voir mes créations
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="px-8 py-3 rounded-xl"
-                onClick={() => {
-                  const estimatorSection = document.getElementById("estimator");
-                  estimatorSection?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={scrollToEstimator}
                 data-cursor-hover
               >
                 Obtenir un devis personnalisé

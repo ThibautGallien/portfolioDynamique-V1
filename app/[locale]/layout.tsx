@@ -1,3 +1,4 @@
+// app/[locale]/layout.tsx
 import "../globals.css";
 import { notFound } from "next/navigation";
 import { Inter } from "next/font/google";
@@ -6,6 +7,7 @@ import { CustomCursor } from "@/components/ui/custom-cursor";
 import { Toaster } from "@/components/ui/sonner";
 import { getMessages, isValidLocale, locales } from "@/lib/i18n";
 import { I18nProvider } from "@/components/providers/i18n-provider";
+import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +18,22 @@ export function generateStaticParams() {
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: { locale: string };
+}
+
+// Métadonnées par défaut (simplifiées pour le debug)
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  if (!isValidLocale(locale)) {
+    return { title: "Page not found" };
+  }
+
+  return {
+    title: "Thibaut Gallien - Portfolio",
+    description: "Développeur Web & Copywriter",
+  };
 }
 
 export default function LocaleLayout({
